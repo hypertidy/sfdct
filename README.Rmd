@@ -54,7 +54,10 @@ plot(nc2_triangles[, c("AREA", "NAME")])
 
 ```
 
-Get a grouped triangulated set from a MULTIPOINT. 
+Get a grouped triangulated set from a MULTIPOINT. Note how these aren't constrained by 
+the edges of the input polygons (because we threw those away!) but these are controlled to have a smaller maximum area. 
+
+Area is calculated in the native coordinates, assuming "planar coordinates", with no respect to the real world. 
 
 ```{r MULTIPOINT}
 mtriangs <- ct_triangulate(st_cast(nc1, "MULTIPOINT"), a = 0.001)
