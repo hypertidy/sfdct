@@ -24,7 +24,7 @@ simple feature column or data frame
 }
 \description{
 Triangulate simple features including the input edges as constraints, rather than
-being bounded to the trim hull.
+being bounded to the convex hull.
 }
 \details{
 This is not a Delaunay Triangulation, but is "mostly-Delaunay". All POLYGON, LINESTRING, MULTIPOLYGON and MULTILINESTRING inputs

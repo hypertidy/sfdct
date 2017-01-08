@@ -60,7 +60,9 @@ plot(nc2_triangles[, c("AREA", "NAME")])
 
 ![](README-hone-3.png)
 
-Get a grouped triangulated set from a MULTIPOINT.
+Get a grouped triangulated set from a MULTIPOINT. Note how these aren't constrained by the edges of the input polygons (because we threw those away!) but these are controlled to have a smaller maximum area.
+
+Area is calculated in the native coordinates, assuming "planar coordinates", with no respect to the real world.
 
 ``` r
 mtriangs <- ct_triangulate(st_cast(nc1, "MULTIPOINT"), a = 0.001)
@@ -68,5 +70,22 @@ plot(mtriangs[, 1], col = viridis::viridis(nrow(mtriangs)))
 ```
 
 ![](README-MULTIPOINT-1.png)
+
+ggplot2 for simple features
+---------------------------
+
+Coming soon.
+
+``` r
+library(ggplot2)
+## no GEOMETRYCOLLECTION grob yet
+##ggplot(nc_triangles) + aes(geometry = geometry, col = NAME) + geom_sf()
+gg <- ggplot(st_cast(nc_triangles)) + aes(geometry = geom, fill = NAME) 
+#> Warning in st_cast.sf(nc_triangles): repeating attributes for all sub-
+#> geometries for which they may not be valid
+gg + geom_sf(col = "darkgrey") + guides(fill = FALSE)
+```
+
+![](README-unnamed-chunk-2-1.png)
 
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.

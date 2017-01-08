@@ -90,10 +90,24 @@ nc1_triangles &lt;-<span class="st"> </span><span class="kw"><a href="reference/
 nc2_triangles &lt;-<span class="st"> </span><span class="kw"><a href="reference/ct_triangulate.html">ct_triangulate</a></span>(nc1, <span class="dt">a =</span> <span class="kw">min</span>(<span class="kw">st_area</span>(nc1))/<span class="dv">25</span>)
 <span class="kw">plot</span>(nc2_triangles[, <span class="kw">c</span>(<span class="st">"AREA"</span>, <span class="st">"NAME"</span>)])</code></pre></div>
 <p><img src="README-hone-3.png" width="672"></p>
-<p>Get a grouped triangulated set from a MULTIPOINT.</p>
+<p>Get a grouped triangulated set from a MULTIPOINT. Note how these aren’t constrained by the edges of the input polygons (because we threw those away!) but these are controlled to have a smaller maximum area.</p>
+<p>Area is calculated in the native coordinates, assuming “planar coordinates”, with no respect to the real world.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtriangs &lt;-<span class="st"> </span><span class="kw"><a href="reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="kw">st_cast</span>(nc1, <span class="st">"MULTIPOINT"</span>), <span class="dt">a =</span> <span class="fl">0.001</span>)
 <span class="kw">plot</span>(mtriangs[, <span class="dv">1</span>], <span class="dt">col =</span> viridis::<span class="kw">viridis</span>(<span class="kw">nrow</span>(mtriangs)))</code></pre></div>
 <p><img src="README-MULTIPOINT-1.png" width="672"></p>
+</div>
+<div id="ggplot2-for-simple-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ggplot2-for-simple-features" class="anchor"> </a>ggplot2 for simple features</h2>
+<p>Coming soon.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+## no GEOMETRYCOLLECTION grob yet
+##ggplot(nc_triangles) + aes(geometry = geometry, col = NAME) + geom_sf()
+gg &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">st_cast</span>(nc_triangles)) +<span class="st"> </span><span class="kw">aes</span>(<span class="dt">geometry =</span> geom, <span class="dt">fill =</span> NAME) 
+<span class="co">#&gt; Warning in st_cast.sf(nc_triangles): repeating attributes for all sub-</span>
+<span class="co">#&gt; geometries for which they may not be valid</span>
+gg +<span class="st"> </span><span class="kw">geom_sf</span>(<span class="dt">col =</span> <span class="st">"darkgrey"</span>) +<span class="st"> </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="README-unnamed-chunk-2-1.png" width="672"></p>
 <p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
 </div>

@@ -32,7 +32,7 @@ paths_as_df <- function(x) {
 #' Constrained Delaunay Triangulation
 #'
 #' Triangulate simple features including the input edges as constraints, rather than
-#' being bounded to the trim hull.
+#' being bounded to the convex hull.
 #'
 #' This is not a Delaunay Triangulation, but is "mostly-Delaunay". All POLYGON, LINESTRING, MULTIPOLYGON and MULTILINESTRING inputs
 #' are broken down into line segments that are included in the mesh. Holes are removed

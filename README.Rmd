@@ -64,4 +64,17 @@ mtriangs <- ct_triangulate(st_cast(nc1, "MULTIPOINT"), a = 0.001)
 plot(mtriangs[, 1], col = viridis::viridis(nrow(mtriangs)))
 ```
 
+## ggplot2 for simple features
+
+Coming soon. 
+
+```{r}
+library(ggplot2)
+## no GEOMETRYCOLLECTION grob yet
+##ggplot(nc_triangles) + aes(geometry = geometry, col = NAME) + geom_sf()
+gg <- ggplot(st_cast(nc_triangles)) + aes(geometry = geom, fill = NAME) 
+gg + geom_sf(col = "darkgrey") + guides(fill = FALSE)
+```
+
+
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
