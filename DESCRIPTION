@@ -1,6 +1,6 @@
 Package: sfct
 Title: Constrained triangulation for simple features
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com")
 Description: Build constrained Delaunay triangulations from simple features
     objects, applying constraints based on input line segments, and triangle
@@ -11,6 +11,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
+    dplyr,
     RTriangle,
     sf
 RoxygenNote: 5.0.1

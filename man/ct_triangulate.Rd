@@ -8,28 +8,28 @@
 \usage{
 ct_triangulate(x, ...)
 
-\method{ct_triangulate}{sfg}(x, convex = FALSE, ...)
+\method{ct_triangulate}{sfg}(x, trim = TRUE, ...)
 
-\method{ct_triangulate}{sf}(x, convex = FALSE, ...)
+\method{ct_triangulate}{sf}(x, trim = TRUE, ...)
 }
 \arguments{
 \item{x}{simple feature geometry or data frame}
 
 \item{...}{arguments for methods}
 
-\item{convex}{drop triangles that fall "outside" i.e. "holes" and non-convex regions, \code{FALSE} by default}
+\item{trim}{drop triangles that fall "outside" i.e. "holes" and non-convex regions, \code{TRUE} by default}
 }
 \value{
 simple feature column or data frame
 }
 \description{
 Triangulate simple features including the input edges as constraints, rather than
-being bounded to the convex hull.
+being bounded to the trim hull.
 }
 \details{
 This is not a Delaunay Triangulation, but is "mostly-Delaunay". All POLYGON, LINESTRING, MULTIPOLYGON and MULTILINESTRING inputs
 are broken down into line segments that are included in the mesh. Holes are removed
-by default, but can be retained with the \code{convex} argument.
+by default, but can be retained with the \code{trim} argument.
 
 The triangles are collected as POLYGONs within a GEOMETRYCOLLECTION, and in the case of an `sf` object
 it's returned within the original input data frame.
@@ -41,26 +41,34 @@ the triangle indices.
 GEOMETRYCOLLECTION as input is not yet supported.
 }
 \examples{
-nc = st_read(system.file("shape/nc.shp", package="sf"))
+library(sf)
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
 nc_triangles <- ct_triangulate(nc[, "NAME"])
 plot(nc[, "NAME"])
 plot(nc_triangles, add = TRUE, col = NA, lty = "dotted")
 idx <- c(4, 5, 6, 7, 8, 20, 21)
 op <- par(mfrow = c(2, 1))
+if (packageVersion("sf") <= '0.2.8'){
+nc <- st_transform(nc, "+proj=eqc +ellps=WGS84")
+}
 plot(st_triangulate(nc[idx, "NAME"]), col = "grey")
 plot(ct_triangulate(nc[idx, "NAME"]))
+
 par(op)
 \dontrun{
   library(rworldmap)
   data(countriesLow)
   sworld <- st_as_sf(countriesLow)
-  sworld <- sworld[sworld$SOVEREIGNT \%in\%  c("Indonesia", "Papua New Guinea", "New Zealand", "Australia"), ]
+  local_places <- c("Indonesia", "Papua New Guinea", "New Zealand", "Australia")
+  sworld <- sworld[sworld$SOVEREIGNT \%in\%  local_places, ]
   ## the centre of the universe
-  sworld <- st_transform(sworld, crs = "+proj=laea +ellps=WGS84 +lat_0=-42 +lon_0=147 +no_defs")
+  llprj <- "+proj=laea +ellps=WGS84 +lat_0=-42 +lon_0=147 +no_defs"
+  sworld <- st_transform(sworld, crs = llprj)
 
   x <- ct_triangulate(sworld)
   plot(x[, "SOVEREIGNT"], main = "constrained vs convex\\n Delaunay triangulation")
-  plot(st_triangulate(sworld), col = sf::sf.colors(nrow(sworld), alpha = 0.3), border = NA, add = TRUE)
+  acols <- sf::sf.colors(nrow(sworld)
+  plot(st_triangulate(sworld), col = acols, alpha = 0.3), border = NA, add = TRUE)
 }
 }
 
