@@ -1,0 +1,30 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# sfct
+
+The goal of sfct is to provide constrained triangulations of simple features. 
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(sf)
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+nc_triangles <- ct_triangulate(nc)
+plot(nc_triangles)
+```

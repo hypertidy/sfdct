@@ -1,0 +1,18 @@
+Package: sfct
+Title: Constrained triangulation for simple features
+Version: 0.0.0.9000
+Authors@R: person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com")
+Description: Build constrained Delaunay triangulations from simple features
+    objects, applying constraints based on input line segments, and triangle
+    properties including maximum area, minimum internal angle.
+Depends:
+    R (>= 3.3.2)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    RTriangle,
+    sf
+RoxygenNote: 5.0.1
+Suggests: testthat,
+    covr
