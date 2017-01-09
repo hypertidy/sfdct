@@ -23,5 +23,5 @@ plot(nc2_triangles[, c("AREA", "NAME")])
 
 ## ----MULTIPOINT----------------------------------------------------------
 mtriangs <- ct_triangulate(st_cast(nc1, "MULTIPOINT"), a = 0.001)
-plot(mtriangs[, 1], col = viridis::viridis(nrow(mtriangs)))
+plot(mtriangs[, 1], col = viridisLite::viridis(nrow(mtriangs)))
 

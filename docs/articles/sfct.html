@@ -96,7 +96,7 @@ nc1_triangles &lt;-<span class="st"> </span><span class="kw"><a href="../referen
 <p>Get a grouped triangulated set from a MULTIPOINT. Note how these aren’t constrained by the edges of the input polygons (because we threw those away!) but these are controlled to have a smaller maximum area.</p>
 <p>Area is calculated in the native coordinates, assuming “planar coordinates”, with no respect to the real world.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtriangs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="kw">st_cast</span>(nc1, <span class="st">"MULTIPOINT"</span>), <span class="dt">a =</span> <span class="fl">0.001</span>)
-<span class="kw">plot</span>(mtriangs[, <span class="dv">1</span>], <span class="dt">col =</span> viridis::<span class="kw">viridis</span>(<span class="kw">nrow</span>(mtriangs)))</code></pre></div>
+<span class="kw">plot</span>(mtriangs[, <span class="dv">1</span>], <span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(mtriangs)))</code></pre></div>
 <p><img src="sfct_files/figure-html/MULTIPOINT-1.png" width="672"></p>
 </div>
 </div>
