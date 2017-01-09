@@ -53,3 +53,4 @@ mtriangs <- ct_triangulate(st_cast(nc1, "MULTIPOINT"), a = 0.001)
 plot(mtriangs[, 1], col = viridisLite::viridis(nrow(mtriangs)))
 ```
 
+
