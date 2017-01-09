@@ -13,8 +13,10 @@ Possibly mis-spelled words in DESCRIPTION:
   Delaunay (5:32)
   triangulations (5:41)
   
-Non-FOSS package license (CC BY-NC-SA 4.0)
-
+Package has a FOSS license but eventually depends on the following
+package which restricts use:
+  RTriangle
+  
 Found the following (possibly) invalid URLs:
   URL: https://cran.r-project.org/package=sfct
     From: README.md
@@ -25,7 +27,8 @@ Found the following (possibly) invalid URLs:
 
 * These words are as intended. 
 
-* The license reflects the underlying dependency on RTriangle. 
+* The license is GPL-3, but with the on-dependency of RTriangle. It is intended that
+future code could include options for other dependencies to replace or optionally replace this one. 
 
 * The CRAN link pre-empts existence on CRAN. 
 
