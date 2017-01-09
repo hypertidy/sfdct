@@ -52,6 +52,9 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
+  <a href="../articles/index.html">Articles</a>
+</li>
+<li>
   <a href="../news/index.html">News</a>
 </li>
       </ul>
@@ -90,14 +93,14 @@ being bounded to the convex hull.</p>
       <dt>x</dt>
       <dd>simple feature geometry or data frame</dd>
       <dt>...</dt>
-      <dd>arguments for methods</dd>
+      <dd>arguments for <code><a href='http://www.rdocumentation.org/packages/RTriangle/topics/triangulate'>triangulate</a></code>, see details</dd>
       <dt>trim</dt>
       <dd>drop triangles that fall &quot;outside&quot; i.e. &quot;holes&quot; and non-convex regions, <code>TRUE</code> by default</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>simple feature column or data frame</p>
+    <p>simple feature column <code><a href='http://www.rdocumentation.org/packages/sf/topics/sfc'>st_sfc</a></code> or data frame <code><a href='http://www.rdocumentation.org/packages/sf/topics/sfc'>st_sfc</a></code></p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -108,6 +111,39 @@ by default, but can be retained with the <code>trim</code> argument.</p>
 it&#39;s returned within the original input data frame.</p>
     <p>There&#39;s no way currently to retain the set of shared vertices, or the segment or
 the triangle indices.</p>
+    <p>Further arguments may be passed down to the underlying triangulation function <code><a href='http://www.rdocumentation.org/packages/RTriangle/topics/triangulate'>triangulate</a></code>.
+Note that planar coordinates are assumed, no matter what projection the input is in. There&#39;s no
+sensible meaning to a value for <code>a</code> in units m^2 for a layer that is in longitude/latitude, for those
+use &quot;area in square degrees&quot;, the straightforward meaning in planar coordinates.
+These are, from the documention of that function:
+<ul>
+<li>&quot;a&quot; a Maximum triangle area. If specified, triangles cannot be
+larger than this area.
+</li>
+<li>q Minimum triangle angle in degrees.
+</li>
+<li>Y If <code>TRUE</code> prohibits the insertion of Steiner points
+on the mesh boundary.
+</li>
+<li>j If <code>TRUE</code> jettisons vertices that are not part of
+the final triangulation from the output.
+</li>
+<li>D If <code>TRUE</code> produce a conforming Delaunay
+triangulation. This ensures that all the triangles in the mesh are
+truly Delaunay, and not merely constrained Delaunay.  This option
+invokes Ruppert&#39;s original algorithm, which splits every
+subsegment whose diametral circle is encroached.  It usually
+increases the number of vertices and triangles.
+</li>
+<li>S Specifies the maximum number of added Steiner points.
+</li>
+<li>V Verbosity level. Specify higher values  for more detailed
+information about what the Triangle library is doing.
+</li>
+<li>Q If <code>TRUE</code> suppresses all explanation of what the
+Triangle library is doing, unless an error occurs. 
+</li>
+</ul></p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 

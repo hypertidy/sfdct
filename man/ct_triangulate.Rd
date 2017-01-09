@@ -15,12 +15,12 @@ ct_triangulate(x, ...)
 \arguments{
 \item{x}{simple feature geometry or data frame}
 
-\item{...}{arguments for methods}
+\item{...}{arguments for \code{\link[RTriangle]{triangulate}}, see details}
 
 \item{trim}{drop triangles that fall "outside" i.e. "holes" and non-convex regions, \code{TRUE} by default}
 }
 \value{
-simple feature column or data frame
+simple feature column \code{\link[sf]{st_sfc}} or data frame \code{\link[sf]{st_sfc}}
 }
 \description{
 Triangulate simple features including the input edges as constraints, rather than
@@ -36,6 +36,32 @@ it's returned within the original input data frame.
 
 There's no way currently to retain the set of shared vertices, or the segment or
 the triangle indices.
+
+Further arguments may be passed down to the underlying triangulation function \code{\link[RTriangle]{triangulate}}.
+Note that planar coordinates are assumed, no matter what projection the input is in. There's no
+sensible meaning to a value for \code{a} in units m^2 for a layer that is in longitude/latitude, for those
+use "area in square degrees", the straightforward meaning in planar coordinates.
+These arguments are, from the documention of that function:
+\itemize{
+\item{a}{ a Maximum triangle area. If specified, triangles cannot be
+larger than this area.}
+\item{q}{ Minimum triangle angle in degrees.}
+\item{Y}{ If \code{TRUE} prohibits the insertion of Steiner points
+on the mesh boundary.}
+\item{j}{ If \code{TRUE} jettisons vertices that are not part of
+the final triangulation from the output.}
+\item{D}{ If \code{TRUE} produce a conforming Delaunay
+triangulation. This ensures that all the triangles in the mesh are
+truly Delaunay, and not merely constrained Delaunay.  This option
+invokes Ruppert's original algorithm, which splits every
+subsegment whose diametral circle is encroached.  It usually
+increases the number of vertices and triangles.}
+\item{S}{ Specifies the maximum number of added Steiner points.}
+\item{V}{ Verbosity level. Specify higher values  for more detailed
+information about what the Triangle library is doing.}
+\item{Q}{ If \code{TRUE} suppresses all explanation of what the
+Triangle library is doing, unless an error occurs. }
+}
 }
 \note{
 GEOMETRYCOLLECTION as input is not yet supported.

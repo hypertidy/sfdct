@@ -16,4 +16,8 @@ Imports:
     sf
 RoxygenNote: 5.0.1
 Suggests: testthat,
-    covr
+    covr,
+    knitr,
+    rmarkdown, 
+    viridisLite
+VignetteBuilder: knitr
