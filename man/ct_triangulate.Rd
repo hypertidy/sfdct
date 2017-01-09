@@ -80,21 +80,5 @@ nc <- st_transform(nc, "+proj=eqc +ellps=WGS84")
 plot(st_triangulate(nc[idx, "NAME"]), col = "grey")
 plot(ct_triangulate(nc[idx, "NAME"]))
 
-par(op)
-\dontrun{
-  library(rworldmap)
-  data(countriesLow)
-  sworld <- st_as_sf(countriesLow)
-  local_places <- c("Indonesia", "Papua New Guinea", "New Zealand", "Australia")
-  sworld <- sworld[sworld$SOVEREIGNT \%in\%  local_places, ]
-  ## the centre of the universe
-  llprj <- "+proj=laea +ellps=WGS84 +lat_0=-42 +lon_0=147 +no_defs"
-  sworld <- st_transform(sworld, crs = llprj)
-
-  x <- ct_triangulate(sworld)
-  plot(x[, "SOVEREIGNT"], main = "constrained vs convex\\n Delaunay triangulation")
-  acols <- sf::sf.colors(nrow(sworld)
-  plot(st_triangulate(sworld), col = acols, alpha = 0.3), border = NA, add = TRUE)
-}
 }
 

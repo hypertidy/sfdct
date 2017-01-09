@@ -8,3 +8,4 @@
 ^cran-comments\.md$
 ^CONDUCT\.md$
 docs
+^data-raw$

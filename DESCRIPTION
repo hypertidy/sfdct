@@ -19,5 +19,6 @@ Suggests: testthat,
     covr,
     knitr,
     rmarkdown, 
+    sp,
     viridisLite
 VignetteBuilder: knitr
