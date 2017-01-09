@@ -5,9 +5,17 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 2 notes
 
+New submission
+
+Possibly mis-spelled words in DESCRIPTION:
+  Delaunay (5:32)
+  triangulations (5:41)
+  
 * This is a new release.
+
+* These words are as intended. 
 
 ## Reverse dependencies
 
