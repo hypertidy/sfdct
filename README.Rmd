@@ -6,9 +6,9 @@ output:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Travis-CI Build Status](https://travis-ci.org/r-gris/sfct.svg?branch=master)](https://travis-ci.org/r-gris/sfct)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-gris/sfct?branch=master&svg=true)](https://ci.appveyor.com/project/r-gris/sfct)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/sfct)](https://cran.r-project.org/package=sfct)
+[![Travis-CI Build Status](https://travis-ci.org/r-gris/sfdct.svg?branch=master)](https://travis-ci.org/r-gris/sfdct)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-gris/sfdct?branch=master&svg=true)](https://ci.appveyor.com/project/r-gris/sfdct)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/sfdct)](https://cran.r-project.org/package=sfdct)
 
 
 ```{r, echo = FALSE}
@@ -19,9 +19,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-# sfct
+# sfdct
 
-The goal of sfct is to provide constrained triangulations of simple features. 
+The goal of sfdct is to provide constrained triangulations of simple features. 
 
 ## Example
 
@@ -29,7 +29,7 @@ This is a basic example which shows you how to decompose a MULTIPOLYGON `sf` dat
 
 ```{r example}
 library(sf)
-library(sfct)
+library(sfdct)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 (nc_triangles <- ct_triangulate(nc))
 ```

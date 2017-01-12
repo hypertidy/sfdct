@@ -1,4 +1,4 @@
-# sfct 0.0.1
+# sfdct 0.0.1
 
 * first release
 

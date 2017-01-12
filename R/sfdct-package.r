@@ -1,6 +1,6 @@
-#' sfct.
+#' sfdct.
 #'
-#' @name sfct
+#' @name sfdct
 #' @docType package
 NULL
 

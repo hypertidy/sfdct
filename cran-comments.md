@@ -18,7 +18,7 @@ package which restricts use:
   RTriangle
   
 Found the following (possibly) invalid URLs:
-  URL: https://cran.r-project.org/package=sfct
+  URL: https://cran.r-project.org/package=sfdct
     From: README.md
     Status: 404
     Message: Not Found
@@ -26,9 +26,6 @@ Found the following (possibly) invalid URLs:
 * This is a new release.
 
 * These words are as intended. 
-
-* The license is GPL-3, but with the on-dependency of RTriangle. It is intended that
-future code could include options for other dependencies to replace or optionally replace this one. 
 
 * The CRAN link pre-empts existence on CRAN. 
 

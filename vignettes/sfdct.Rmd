@@ -18,10 +18,10 @@ This is a basic example which shows you how to decompose a MULTIPOLYGON `sf` dat
 
 ```{r example}
 library(sf)
-library(sfct)
+library(sfdct)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 nc_triangles <- ct_triangulate(nc)
-plot(nc_triangles[, c("PERIMETER", "NAME")])
+plot(nc_triangles[, 1:2])
 ```
 
 We can use the underlying `RTriangle::triangulate` arguments to hone the triangles we get. 
@@ -36,10 +36,11 @@ st_crs(nc1) <- NA
 areas <- st_area(nc1)
 st_crs(nc1) <- st_crs(nc)
 nc1_triangles <- ct_triangulate(nc1, a = min(areas)/5)
-plot(nc1_triangles[, c("AREA", "NAME")])
+bcol <- viridisLite::viridis(nrow(nc1_triangles))
+plot(nc1_triangles, col = NA, border = bcol)
 
-nc2_triangles <- ct_triangulate(nc1, a = min(st_area(nc1))/25)
-plot(nc2_triangles[, c("AREA", "NAME")])
+nc2_triangles <- ct_triangulate(nc1, a = min(st_area(st_set_crs(nc1, NA)))/25)
+plot(nc2_triangles, col = NA, border = bcol)
 
 ```
 
@@ -49,8 +50,10 @@ the edges of the input polygons (because we threw those away!) but these are con
 Area is calculated in the native coordinates, assuming "planar coordinates", with no respect to the real world. 
 
 ```{r MULTIPOINT}
-mtriangs <- ct_triangulate(st_cast(nc1, "MULTIPOINT"), a = 0.001)
-plot(mtriangs[, 1], col = viridisLite::viridis(nrow(mtriangs)))
+## manual cast to MULTIPOINT
+st_geometry(nc1) <- st_sfc(lapply(unlist(unlist(st_geometry(nc1), recursive = FALSE), recursive = FALSE), st_multipoint), crs = st_crs(nc1))
+mtriangs <- ct_triangulate(nc1, a = 0.001)
+plot(mtriangs, col = viridisLite::viridis(nrow(mtriangs)))
 ```
 
 

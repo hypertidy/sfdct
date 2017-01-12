@@ -1,7 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/r-gris/sfct.svg?branch=master)](https://travis-ci.org/r-gris/sfct) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-gris/sfct?branch=master&svg=true)](https://ci.appveyor.com/project/r-gris/sfct) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sfct)](https://cran.r-project.org/package=sfct)
+[![Travis-CI Build Status](https://travis-ci.org/r-gris/sfdct.svg?branch=master)](https://travis-ci.org/r-gris/sfdct) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-gris/sfdct?branch=master&svg=true)](https://ci.appveyor.com/project/r-gris/sfdct) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sfdct)](https://cran.r-project.org/package=sfdct)
 
-sfct
+sfdct
 ====
 
 The goal of sfct is to provide constrained triangulations of simple features.

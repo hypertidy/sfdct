@@ -23,7 +23,8 @@ df_data <- function(x) setNames(as.data.frame(m_or_v_XY(x)), c("x", "y"))
 ## convert everything to a flat list of data frames
 ## (hierarchy matches sp, everything is a POLYGON/MULTILINESTRING)
 paths_as_df <- function(x) {
-  x <- st_cast(x, "MULTILINESTRING")
+  x <- unlist(x, recursive = FALSE)
+  #x <- st_cast(x, "MULTILINESTRING")
   rapply(unclass(x), f = df_data,
          classes = c("numeric", "matrix"), how = "list")
 }
@@ -79,7 +80,7 @@ paths_as_df <- function(x) {
 #' @examples
 #' library(sf)
 #' nc <- st_read(system.file("shape/nc.shp", package="sf"))
-#' nc_triangles <- ct_triangulate(nc[, "NAME"])
+#' nc_triangles <- ct_triangulate(nc[, c("NAME", "geometry")])
 #' plot(nc[, "NAME"])
 #' plot(nc_triangles, add = TRUE, col = NA, lty = "dotted")
 #' idx <- c(4, 5, 6, 7, 8, 20, 21)
@@ -87,8 +88,8 @@ paths_as_df <- function(x) {
 #' if (packageVersion("sf") <= '0.2.8'){
 #' nc <- st_transform(nc, "+proj=eqc +ellps=WGS84")
 #' }
-#' plot(st_triangulate(nc[idx, "NAME"]), col = "grey")
-#' plot(ct_triangulate(nc[idx, "NAME"]))
+#' plot(st_triangulate(nc[idx, c("NAME", "geometry")]), col = "grey")
+#' plot(ct_triangulate(nc[idx, c("NAME", "geometry")]))
 #'
 ct_triangulate <- function(x,  ...) {
   UseMethod("ct_triangulate")

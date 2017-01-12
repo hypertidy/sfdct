@@ -10,6 +10,8 @@ test_that("ct works", {
 })
 
 test_that("different inputs work", {
-  expect_that(ct_triangulate(st_cast(nc[4, ], "MULTIPOINT")), is_a("sf"))
+  ## replace with st_cast when 0.2.8 comes out
+  st_geometry(nc) <- st_sfc(lapply(st_geometry(nc), function(x) st_multipoint(do.call(rbind, unlist(x, recursive = FALSE)))), crs = st_crs(nc))
+  expect_that(ct_triangulate(nc[4, ]), is_a("sf"))
 
 })

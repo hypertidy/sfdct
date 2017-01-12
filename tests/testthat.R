@@ -1,4 +1,4 @@
 library(testthat)
-library(sfct)
+library(sfdct)
 
-test_check("sfct")
+test_check("sfdct")
