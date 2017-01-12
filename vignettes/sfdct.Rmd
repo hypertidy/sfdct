@@ -21,7 +21,7 @@ library(sf)
 library(sfdct)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 nc_triangles <- ct_triangulate(nc)
-plot(nc_triangles[, 1:2])
+plot(nc_triangles, col = viridisLite::viridis(nrow(nc_triangles)))
 ```
 
 We can use the underlying `RTriangle::triangulate` arguments to hone the triangles we get. 
@@ -29,7 +29,7 @@ We can use the underlying `RTriangle::triangulate` arguments to hone the triangl
 ```{r hone}
 i_feature <- 25
 nc1 <- nc[c(i_feature, unlist(st_touches(nc[i_feature, ], nc))), ]
-plot(nc1[, c("AREA", "NAME")])
+plot(nc1,col = viridisLite::viridis(nrow(nc1)))
 
 ## subvert st_area because we really don't want m^2
 st_crs(nc1) <- NA
