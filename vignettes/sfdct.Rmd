@@ -52,7 +52,7 @@ Area is calculated in the native coordinates, assuming "planar coordinates", wit
 ```{r MULTIPOINT}
 ## manual cast to MULTIPOINT
 st_geometry(nc1) <- st_sfc(lapply(unlist(unlist(st_geometry(nc1), recursive = FALSE), recursive = FALSE), st_multipoint), crs = st_crs(nc1))
-mtriangs <- ct_triangulate(nc1, a = 0.001)
+mtriangs <- ct_triangulate(nc1, a = 0.0005)
 plot(mtriangs, col = viridisLite::viridis(nrow(mtriangs)))
 ```
 
