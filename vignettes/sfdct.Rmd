@@ -17,11 +17,16 @@ vignette: >
 This is a basic example which shows you how to decompose a MULTIPOLYGON `sf` data frame object into a GEOMETRYCOLLECTION `sf` data frame object made of triangles:
 
 ```{r example}
+
+
 library(sf)
 library(sfdct)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 nc_triangles <- ct_triangulate(nc)
-plot(nc_triangles, col = viridisLite::viridis(nrow(nc_triangles)))
+## note we have to use st_geometry to get a reasonable map 
+## in short time, unfortunately every single plot call has
+## to be modified, there's no flexibility provided from sf
+plot(st_geometry(nc_triangles),   col = viridisLite::viridis(nrow(nc_triangles)))
 ```
 
 We can use the underlying `RTriangle::triangulate` arguments to hone the triangles we get. 
@@ -29,7 +34,7 @@ We can use the underlying `RTriangle::triangulate` arguments to hone the triangl
 ```{r hone}
 i_feature <- 25
 nc1 <- nc[c(i_feature, unlist(st_touches(nc[i_feature, ], nc))), ]
-plot(nc1,col = viridisLite::viridis(nrow(nc1)))
+plot(st_geometry(nc1),col = viridisLite::viridis(nrow(nc1)))
 
 ## subvert st_area because we really don't want m^2
 st_crs(nc1) <- NA
@@ -37,10 +42,10 @@ areas <- st_area(nc1)
 st_crs(nc1) <- st_crs(nc)
 nc1_triangles <- ct_triangulate(nc1, a = min(areas)/5)
 bcol <- viridisLite::viridis(nrow(nc1_triangles))
-plot(nc1_triangles, col = NA, border = bcol)
+plot(st_geometry(nc1_triangles), col = NA, border = bcol)
 
 nc2_triangles <- ct_triangulate(nc1, a = min(st_area(st_set_crs(nc1, NA)))/25)
-plot(nc2_triangles, col = NA, border = bcol)
+plot(st_geometry(nc2_triangles), col = NA, border = bcol)
 
 ```
 
@@ -50,10 +55,11 @@ the edges of the input polygons (because we threw those away!) but these are con
 Area is calculated in the native coordinates, assuming "planar coordinates", with no respect to the real world. 
 
 ```{r MULTIPOINT}
-## manual cast to MULTIPOINT
-st_geometry(nc1) <- st_sfc(lapply(unlist(unlist(st_geometry(nc1), recursive = FALSE), recursive = FALSE), st_multipoint), crs = st_crs(nc1))
+## manual cast to MULTIPOINT originally required
+#st_geometry(nc1) <- st_sfc(lapply(unlist(unlist(st_geometry(nc1), recursive = FALSE), recursive = FALSE), st_multipoint), crs = st_crs(nc1))
+mp_nc1 <- st_cast(nc1, "MULTIPOINT")
 mtriangs <- ct_triangulate(nc1, a = 0.0005)
-plot(mtriangs, col = viridisLite::viridis(nrow(mtriangs)))
+plot(st_geometry(mtriangs), col = viridisLite::viridis(nrow(mtriangs)), border = "#00000033")
 ```
 
 

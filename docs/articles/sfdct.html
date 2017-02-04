@@ -53,7 +53,7 @@
       <h1>Constrained triangulation for Simple Features</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2017-01-13</h4>
+            <h4 class="date">2017-02-04</h4>
           </div>
 
     
@@ -75,13 +75,16 @@ nc &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="kw
 ## epsg (SRID):    4267
 ## proj4string:    +proj=longlat +datum=NAD27 +no_defs</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_triangles &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc)
-<span class="kw">plot</span>(nc_triangles, <span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(nc_triangles)))</code></pre></div>
+## note we have to use st_geometry to get a reasonable map 
+## in short time, unfortunately every single plot call has
+## to be modified, there's no flexibility provided from sf
+<span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc_triangles),   <span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(nc_triangles)))</code></pre></div>
 <p><img src="sfdct_files/figure-html/example-1.png" width="672"></p>
 <p>We can use the underlying <code>RTriangle::triangulate</code> arguments to hone the triangles we get.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i_feature &lt;-<span class="st"> </span><span class="dv">25</span>
 nc1 &lt;-<span class="st"> </span>nc[<span class="kw">c</span>(i_feature, <span class="kw">unlist</span>(<span class="kw">st_touches</span>(nc[i_feature, ], nc))), ]</code></pre></div>
 <pre><code>## although coordinates are longitude/latitude, it is assumed that they are planar</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(nc1,<span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(nc1)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc1),<span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(nc1)))</code></pre></div>
 <p><img src="sfdct_files/figure-html/hone-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## subvert st_area because we really don't want m^2
 <span class="kw">st_crs</span>(nc1) &lt;-<span class="st"> </span><span class="ot">NA</span>
@@ -89,17 +92,18 @@ areas &lt;-<span class="st"> </span><span class="kw">st_area</span>(nc1)
 <span class="kw">st_crs</span>(nc1) &lt;-<span class="st"> </span><span class="kw">st_crs</span>(nc)
 nc1_triangles &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc1, <span class="dt">a =</span> <span class="kw">min</span>(areas)/<span class="dv">5</span>)
 bcol &lt;-<span class="st"> </span>viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(nc1_triangles))
-<span class="kw">plot</span>(nc1_triangles, <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">border =</span> bcol)</code></pre></div>
+<span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc1_triangles), <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">border =</span> bcol)</code></pre></div>
 <p><img src="sfdct_files/figure-html/hone-2.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc2_triangles &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc1, <span class="dt">a =</span> <span class="kw">min</span>(<span class="kw">st_area</span>(<span class="kw">st_set_crs</span>(nc1, <span class="ot">NA</span>)))/<span class="dv">25</span>)
-<span class="kw">plot</span>(nc2_triangles, <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">border =</span> bcol)</code></pre></div>
+<span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc2_triangles), <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">border =</span> bcol)</code></pre></div>
 <p><img src="sfdct_files/figure-html/hone-3.png" width="672"></p>
 <p>Get a grouped triangulated set from a MULTIPOINT. Note how these aren’t constrained by the edges of the input polygons (because we threw those away!) but these are controlled to have a smaller maximum area.</p>
 <p>Area is calculated in the native coordinates, assuming “planar coordinates”, with no respect to the real world.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## manual cast to MULTIPOINT
-<span class="kw">st_geometry</span>(nc1) &lt;-<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">lapply</span>(<span class="kw">unlist</span>(<span class="kw">unlist</span>(<span class="kw">st_geometry</span>(nc1), <span class="dt">recursive =</span> <span class="ot">FALSE</span>), <span class="dt">recursive =</span> <span class="ot">FALSE</span>), st_multipoint), <span class="dt">crs =</span> <span class="kw">st_crs</span>(nc1))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## manual cast to MULTIPOINT originally required
+<span class="co">#st_geometry(nc1) &lt;- st_sfc(lapply(unlist(unlist(st_geometry(nc1), recursive = FALSE), recursive = FALSE), st_multipoint), crs = st_crs(nc1))</span>
+mp_nc1 &lt;-<span class="st"> </span><span class="kw">st_cast</span>(nc1, <span class="st">"MULTIPOINT"</span>)
 mtriangs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc1, <span class="dt">a =</span> <span class="fl">0.0005</span>)
-<span class="kw">plot</span>(mtriangs, <span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(mtriangs)))</code></pre></div>
+<span class="kw">plot</span>(<span class="kw">st_geometry</span>(mtriangs), <span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(mtriangs)), <span class="dt">border =</span> <span class="st">"#00000033"</span>)</code></pre></div>
 <p><img src="sfdct_files/figure-html/MULTIPOINT-1.png" width="672"></p>
 </div>
 </div>

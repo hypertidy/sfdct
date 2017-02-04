@@ -2,8 +2,10 @@
 % Please edit documentation in R/sfdct.R
 \name{ct_triangulate}
 \alias{ct_triangulate}
-\alias{ct_triangulate.sf}
+\alias{ct_triangulate}
 \alias{ct_triangulate.sfg}
+\alias{ct_triangulate}
+\alias{ct_triangulate.sf}
 \title{Constrained Delaunay Triangulation}
 \usage{
 ct_triangulate(x, ...)
@@ -81,4 +83,3 @@ plot(st_triangulate(nc[idx, c("NAME", "geometry")]), col = "grey")
 plot(ct_triangulate(nc[idx, c("NAME", "geometry")]))
 
 }
-

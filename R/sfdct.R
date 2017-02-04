@@ -23,8 +23,8 @@ df_data <- function(x) setNames(as.data.frame(m_or_v_XY(x)), c("x", "y"))
 ## convert everything to a flat list of data frames
 ## (hierarchy matches sp, everything is a POLYGON/MULTILINESTRING)
 paths_as_df <- function(x) {
-  x <- unlist(x, recursive = FALSE)
-  #x <- st_cast(x, "MULTILINESTRING")
+ # x <- unlist(x, recursive = FALSE)
+  x <- st_cast(x, "MULTILINESTRING")
   rapply(unclass(x), f = df_data,
          classes = c("numeric", "matrix"), how = "list")
 }
@@ -147,14 +147,20 @@ ct_triangulate.sf <- function(x, trim = TRUE, ...) {
   if (all(types == "POINT")) {
     message("all POINT, returning one feature triangulated")
     xa <- do.call(rbind, lapply(st_geometry(x), function(xy) m_or_v_XY(xy)))
+    dupes <- duplicated(as.data.frame(xa))
+    if (any(dupes)) {
+      message(sprintf("removing %i duplicated coordinates", sum(dupes)))
+      xa <- xa[!dupes, , drop = FALSE]
+    }
     if (nrow(xa) < 2) {
       warning("less than 3 coordinates, returning empty POLYGON")
       return(st_sf(npoints = nrow(x), geometry = st_sfc(st_polygon(dim = "XY"), crs = st_crs(x))))
     }
     tr <- RTriangle::triangulate(RTriangle::pslg(xa, ...))
-    g <- st_sfc(lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
-                       function(x) structure(list(tr$P[c(x, x[1L]), ]),class = c("XY", "POLYGON", "sfg"))), crs = st_crs(x))
-    return(st_sf(npoints = nrow(x), geometry = st_sfc(st_polygon(dim = "XY"), crs = st_crs(x))))
+    g <- st_sfc(st_geometrycollection(lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
+                       function(x) structure(list(tr$P[c(x, x[1L]), ]),class = c("XY", "POLYGON", "sfg")))), crs = st_crs(x))
+
+    return(st_sf(npoints = nrow(x), geometry = g))
   }
 
 
