@@ -43,6 +43,8 @@ nc <- st_read(system.file("shape/nc.shp", package="sf"))
 plot(asub, col = "aliceblue")
 ```
 
-![](README-example-1.png) See the vignettes for more examples.
+![](README-example-1.png)
+
+See the vignettes for more examples.
 
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
