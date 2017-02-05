@@ -88,6 +88,16 @@ g <- map(plot = FALSE, fill = TRUE) %>% st_as_sf() %>% dplyr::filter(startsWith(
 #sf::plot_sf(g, col = "aliceblue", main = "")
 ```
 
+## Holes better work, or else
+
+```{r}
+data("antarctica")
+plot(antarctica)
+a <- ct_triangulate(st_difference(antarctica[1], antarctica[2, ]))
+plot(st_geometry(a), col = "firebrick")
+```
+
+
 The output of `ct_triangulate` can be the input to another call to it. 
 
 ```{r}
