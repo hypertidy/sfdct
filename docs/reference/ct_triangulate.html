@@ -107,13 +107,15 @@ being bounded to the convex hull.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This is not a Delaunay Triangulation, but is &quot;mostly-Delaunay&quot;. All POLYGON, LINESTRING, MULTIPOLYGON and MULTILINESTRING inputs
+    <p>This is not a Delaunay Triangulation by default, but is &quot;mostly-Delaunay&quot;. Use the `D = TRUE` option,
+passed to the underlying function in RTriangle to ensure the criterion is met, as well as edge constraints.</p>
+    <p>All POLYGON, LINESTRING, MULTIPOLYGON and MULTILINESTRING inputs
 are broken down into line segments that are included in the mesh. Holes are removed
 by default, but can be retained with the <code>trim</code> argument.</p>
     <p>The triangles are collected as POLYGONs within a GEOMETRYCOLLECTION, and in the case of an `sf` object
 it&#39;s returned within the original input data frame.</p>
-    <p>There&#39;s no way currently to retain the set of shared vertices, or the segment or
-the triangle indices.</p>
+    <p>There&#39;s no way in this package to retain the set of shared vertices, or the segment or
+the triangle indices. This is</p>
     <p>Further arguments may be passed down to the underlying triangulation function <code><a href='http://www.rdocumentation.org/packages/RTriangle/topics/triangulate'>triangulate</a></code>.
 Note that planar coordinates are assumed, no matter what projection the input is in. There&#39;s no
 sensible meaning to a value for <code>a</code> in units m^2 for a layer that is in longitude/latitude, for those
@@ -168,6 +170,9 @@ Triangle library is doing, unless an error occurs.
 <span class='kw'>if</span> (<span class='fu'>packageVersion</span>(<span class='st'>"sf"</span>) <span class='kw'>&lt;=</span> <span class='st'>'0.2.8'</span>){
 <span class='no'>nc</span> <span class='kw'>&lt;-</span> <span class='fu'>st_transform</span>(<span class='no'>nc</span>, <span class='st'>"+proj=eqc +ellps=WGS84"</span>)
 }
+
+<span class='co'>## ignore the warnings from sf, it's not relevant that we be "geographically correct"</span>
+<span class='co'>## by some definition of "correct", that is up to the user</span>
 <span class='fu'>plot</span>(<span class='fu'>st_triangulate</span>(<span class='no'>nc</span>[<span class='no'>idx</span>, <span class='fu'>c</span>(<span class='st'>"NAME"</span>, <span class='st'>"geometry"</span>)]), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"grey"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: st_triangulate does not correctly triangulate longitude/latitude data</span></div><div class='input'><span class='fu'>plot</span>(<span class='fu'>ct_triangulate</span>(<span class='no'>nc</span>[<span class='no'>idx</span>, <span class='fu'>c</span>(<span class='st'>"NAME"</span>, <span class='st'>"geometry"</span>)]))</div><img src='ct_triangulate-9.png' alt='' width='540' height='400' /><div class='input'>
 </div></pre>
   </div>
