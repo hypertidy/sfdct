@@ -95,6 +95,9 @@ ct_triangulate <- function(x,  ...) {
   UseMethod("ct_triangulate")
 }
 #' @export
+#' @importFrom sp over
+#' @importFrom sf st_point st_set_crs
+#' @importFrom methods as
 #' @name ct_triangulate
 ct_triangulate.sfg <- function(x, trim = TRUE, ...){
   if (inherits(x, "POINT")) {
@@ -133,10 +136,22 @@ ct_triangulate.sfg <- function(x, trim = TRUE, ...){
   g <- lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
                      function(x) structure(list(tr$P[c(x, x[1L]), ]), class = c("XY", "POLYGON", "sfg")))
   drop <- rep(FALSE, length(g))
-  if (trim) {
+  if (trim && (inherits(x, "POLYGON") | inherits(x, "MULTIPOLYGON"))) {
+
+
     ## TODO test per-object not per entire set ...
-    drop <- unlist(lapply(st_intersects(st_centroid(st_geometrycollection(g)), x), length)) < 1L
+    #drop <- unlist(lapply(st_intersects(st_centroid(st_geometrycollection(g)), x), length)) < 1L
+    triangle_centroid <- function(x) cbind(mean(x[,1]), mean(x[,2]))
+    sp_points <- as(st_sfc(lapply(g, function(x) sf::st_point(triangle_centroid(x[[1]])))), "Spatial")
+    sp_poly <- as(sf::st_set_crs(st_geometry(x), NA), "Spatial")
+    drop <- is.na(sp::over(sp_points, sp_poly))
+    ## gosh no
+    #triangle_centroid <- function(x) cbind(mean(x[,1]), mean(x[,2]))
+    ## this is really slow, need to shortcircuit this basic test
+    #test <- st_intersects(st_sfc(lapply(g, function(x) st_point(triangle_centroid(x[[1]])))), x)
+    #drop <- unlist(test) < 1L
   }
+
   st_geometrycollection(g[!drop])
 }
 
@@ -147,6 +162,9 @@ ct_triangulate.sfc <- function(x, ...) {
   st_sfc(lapply(x, ct_triangulate, ...), crs = st_crs(x), precision = st_precision(x))
 }
 
+# ct_triangulate.GEOMETRYCOLLECTION <- function(x, ...) {
+#   st_geometrycollection(unlist(lapply(lapply(x, ct_triangulate), function(x) unclass(x)), recursive = FALSE))
+# }
 #' @export
 #' @name ct_triangulate
 #' @importFrom sf st_geometry_type st_geometry st_sfc st_polygon st_sf st_geometrycollection st_centroid st_intersects st_geometry<- st_crs

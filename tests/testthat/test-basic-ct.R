@@ -24,6 +24,13 @@ test_that("sf, sfc, sfg all return as input", {
 }
 )
 
+is_empty <- function(x, ...) {
+  UseMethod("is_empty")
+}
+is_empty.sfg <- function(x, ...) !length(x) > 0
+is_empty.sfc <- function(x, ...) unlist(lapply(x, is_empty))
+is_empty.sf <- function(x, ...) is_empty(st_geometry(x))
+
 test_that("different inputs work", {
   ## replace with st_cast when 0.2.8 comes out
   #st_geometry(nc) <- st_sfc(lapply(st_geometry(nc), function(x) st_multipoint(do.call(rbind, unlist(x, recursive = FALSE)))), crs = st_crs(nc))
@@ -33,6 +40,8 @@ test_that("different inputs work", {
   expect_warning(ml_nc <- st_cast(nc, "MULTILINESTRING"), "repeating")
   ml_nc %>%     expect_s3_class("sf") %>% ct_triangulate() %>% expect_s3_class("sf")
 
+  lstri <- st_linestring(st_geometry(ml_nc)[[4]][[1]]) %>% ct_triangulate()
+  expect_that(lstri %>% is_empty(), is_false())
   ## beware that cast just joins all the paths together
   ## it doesn't drop the first
   l_nc <- st_cast(nc, "LINESTRING")
@@ -48,5 +57,32 @@ test_that("different inputs work", {
   pp_tri <- pp_nc %>%     expect_s3_class("sf") %>% ct_triangulate() %>% expect_s3_class("sf")
   expect_that(nrow(pp_tri), equals(1L))
 })
-
-
+#
+# ## from ?st_geometrycollection
+# g1 <- c(st_geometrycollection(list(st_point(1:2), st_linestring(matrix(1:6,3)))),
+#   st_geometrycollection(list(st_multilinestring(list(matrix(11:16,3))))))
+# g2 <- c(st_geometrycollection(list(st_point(1:2), st_linestring(matrix(1:6,3)))),
+#   st_multilinestring(list(matrix(11:16,3))), st_point(5:6),
+#   st_geometrycollection(list(st_point(10:11))))
+#
+# test_that("we can triangulate a geometrycollection", {
+#   st_geometry(nc_triangles) %>% ct_triangulate() %>% plot(col = "transparent")
+#
+#   # expect_that(st_geometry(nc_triangles) %>% ct_triangulate()  %>% is_empty() %>% all(), is_true())
+#   expect_that(ct_triangulate(st_geometry(nc_triangles[1:5, ])), is_a("sfc_GEOMETRYCOLLECTION") )
+#   #expect_that(st_geometry(nc_triangles)[[1]] %>% ct_triangulate()  %>% is_empty(), is_true())
+#   expect_that(st_geometry(nc_triangles)[[1]] %>% ct_triangulate()  %>% is_empty(), is_false())
+#   ## give it one of the polygons from the geometrycollection and it's fine
+#   expect_that(st_geometry(nc_triangles)[[1]][[1]] %>% ct_triangulate(a = .00001) %>% is_empty()  , is_false())
+#
+#   ct_triangulate(g1)
+# })
+#
+#
+# library(sf)
+#
+# nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+# data("sfzoo", package= "sc")
+# data("sfgc", package= "sc")
+#
+#

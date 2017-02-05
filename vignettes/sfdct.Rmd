@@ -63,4 +63,35 @@ mtriangs <- ct_triangulate(nc1, a = 0.0005)
 plot(st_geometry(mtriangs), col = viridisLite::viridis(nrow(mtriangs)), border = "#00000033")
 ```
 
+```{r}
+plot(nc[4, ]$geometry)
+## q, minimum angle
+## D, Delaunay criterion is met
+plot(ct_triangulate(nc[4, ]$geometry, q = 35, D = TRUE), add = TRUE, col = "transparent")
 
+```
+
+## Geometry collection is not fully supported
+
+POLYGON triangles in GEOMETRYCOLLECTION will be re-triangulated. 
+
+Points and lines need to be added to the graph. 
+
+## Chaining together operations 
+
+We can use piping to chain things together. 
+
+```{r}
+library(maps)
+library(dplyr)
+g <- map(plot = FALSE, fill = TRUE) %>% st_as_sf() %>% dplyr::filter(startsWith(ID, "Indonesia")) %>% ct_triangulate() %>% st_geometry() 
+#sf::plot_sf(g, col = "aliceblue", main = "")
+```
+
+The output of `ct_triangulate` can be the input to another call to it. 
+
+```{r}
+m <- map(plot = FALSE, fill = TRUE) %>% st_as_sf() %>% dplyr::filter(startsWith(ID, "Papua New Guinea"))
+plotme <- function(x) {plot(st_geometry(x), col = "aliceblue"); x}
+#m %>% ct_triangulate(a = 0.1) %>% plotme() %>% ct_triangulate(a = 1) %>% plotme()
+```

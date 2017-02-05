@@ -53,7 +53,7 @@
       <h1>Constrained triangulation for Simple Features</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2017-02-05</h4>
+            <h4 class="date">2017-02-06</h4>
           </div>
 
     
@@ -106,6 +106,30 @@ mp_nc1 &lt;-<span class="st"> </span><span class="kw">st_cast</span>(nc1, <span 
 mtriangs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc1, <span class="dt">a =</span> <span class="fl">0.0005</span>)
 <span class="kw">plot</span>(<span class="kw">st_geometry</span>(mtriangs), <span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(mtriangs)), <span class="dt">border =</span> <span class="st">"#00000033"</span>)</code></pre></div>
 <p><img src="sfdct_files/figure-html/MULTIPOINT-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(nc[<span class="dv">4</span>, ]$geometry)
+## q, minimum angle
+## D, Delaunay criterion is met
+<span class="kw">plot</span>(<span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc[<span class="dv">4</span>, ]$geometry, <span class="dt">q =</span> <span class="dv">35</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="st">"transparent"</span>)</code></pre></div>
+<p><img src="sfdct_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
+</div>
+<div id="geometry-collection-is-not-fully-supported" class="section level2">
+<h2 class="hasAnchor">
+<html><body><a href="#geometry-collection-is-not-fully-supported" class="anchor"> </a></body></html>Geometry collection is not fully supported</h2>
+<p>POLYGON triangles in GEOMETRYCOLLECTION will be re-triangulated.</p>
+<p>Points and lines need to be added to the graph.</p>
+</div>
+<div id="chaining-together-operations" class="section level2">
+<h2 class="hasAnchor">
+<html><body><a href="#chaining-together-operations" class="anchor"> </a></body></html>Chaining together operations</h2>
+<p>We can use piping to chain things together.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(maps)
+<span class="kw">library</span>(dplyr)
+g &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dt">plot =</span> <span class="ot">FALSE</span>, <span class="dt">fill =</span> <span class="ot">TRUE</span>) %&gt;%<span class="st"> </span><span class="kw">st_as_sf</span>() %&gt;%<span class="st"> </span>dplyr::<span class="kw">filter</span>(<span class="kw">startsWith</span>(ID, <span class="st">"Indonesia"</span>)) %&gt;%<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>() %&gt;%<span class="st"> </span><span class="kw">st_geometry</span>() 
+<span class="co">#sf::plot_sf(g, col = "aliceblue", main = "")</span></code></pre></div>
+<p>The output of <code>ct_triangulate</code> can be the input to another call to it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span><span class="kw">map</span>(<span class="dt">plot =</span> <span class="ot">FALSE</span>, <span class="dt">fill =</span> <span class="ot">TRUE</span>) %&gt;%<span class="st"> </span><span class="kw">st_as_sf</span>() %&gt;%<span class="st"> </span>dplyr::<span class="kw">filter</span>(<span class="kw">startsWith</span>(ID, <span class="st">"Papua New Guinea"</span>))
+plotme &lt;-<span class="st"> </span>function(x) {<span class="kw">plot</span>(<span class="kw">st_geometry</span>(x), <span class="dt">col =</span> <span class="st">"aliceblue"</span>); x}
+<span class="co">#m %&gt;% ct_triangulate(a = 0.1) %&gt;% plotme() %&gt;% ct_triangulate(a = 1) %&gt;% plotme()</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -115,6 +139,8 @@ mtriangs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#example">Example</a></li>
+      <li><a href="#geometry-collection-is-not-fully-supported">Geometry collection is not fully supported</a></li>
+      <li><a href="#chaining-together-operations">Chaining together operations</a></li>
       </ul>
 </div>
       </div>
