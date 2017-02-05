@@ -94,7 +94,9 @@ nc &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="kw
 
 <span class="kw">plot</span>(asub, <span class="dt">col =</span> <span class="st">"aliceblue"</span>)</code></pre></div>
 <p><img src="README-example-1.png" width="672"></p>
-<p>See the vignettes for more examples.</p>
+<p>Denser triangles, and optionally <code>D</code> for ensuring Delaunay criterion is met.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(<span class="kw"><a href="reference/ct_triangulate.html">ct_triangulate</a></span>(nc[<span class="dv">4</span>, ], <span class="dt">a =</span> <span class="fl">0.0007</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>)), <span class="dt">col =</span> <span class="st">"transparent"</span>)</code></pre></div>
+<p><img src="README-unnamed-chunk-2-1.png" width="672"> See the vignettes for more examples.</p>
 <p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
 </div>

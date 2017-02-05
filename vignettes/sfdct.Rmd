@@ -82,13 +82,13 @@ Points and lines need to be added to the graph.
 We can use piping to chain things together. 
 
 ```{r}
-library(maps)
+data("map_world", package= "sfdct")
 library(dplyr)
-g <- map(plot = FALSE, fill = TRUE) %>% st_as_sf() %>% dplyr::filter(startsWith(ID, "Indonesia")) %>% ct_triangulate() %>% st_geometry() 
-#sf::plot_sf(g, col = "aliceblue", main = "")
+g <-  map_world %>% dplyr::filter(startsWith(ID, "Indonesia")) %>% ct_triangulate() %>% st_geometry() 
+plot(g, col = "aliceblue", main = "")
 ```
 
-## Holes better work, or else
+## Holes better work (or else)
 
 ```{r}
 data("antarctica")
@@ -101,7 +101,7 @@ plot(st_geometry(a), col = "firebrick")
 The output of `ct_triangulate` can be the input to another call to it. 
 
 ```{r}
-m <- map(plot = FALSE, fill = TRUE) %>% st_as_sf() %>% dplyr::filter(startsWith(ID, "Papua New Guinea"))
+m <- map_world %>% dplyr::filter(startsWith(ID, "Papua New Guinea"))
 plotme <- function(x) {plot(st_geometry(x), col = "aliceblue"); x}
-#m %>% ct_triangulate(a = 0.1) %>% plotme() %>% ct_triangulate(a = 1) %>% plotme()
+m %>% ct_triangulate(a = 0.2, D = TRUE) %>% plotme() 
 ```
