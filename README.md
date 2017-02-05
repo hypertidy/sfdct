@@ -45,6 +45,12 @@ plot(asub, col = "aliceblue")
 
 ![](README-example-1.png)
 
-See the vignettes for more examples.
+Denser triangles, and optionally `D` for ensuring Delaunay criterion is met.
+
+``` r
+plot(st_geometry(ct_triangulate(nc[4, ], a = 0.0007, D = TRUE)), col = "transparent")
+```
+
+![](README-unnamed-chunk-19-1.png) See the vignettes for more examples.
 
 Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.

@@ -41,7 +41,12 @@ plot(asub, col = "aliceblue")
 
 ```
 
+Denser triangles, and optionally `D` for ensuring Delaunay criterion is met. 
 
+```{r}
+plot(st_geometry(ct_triangulate(nc[4, ], a = 0.0007, D = TRUE)), col = "transparent")
+
+```
 See the vignettes for more examples. 
 
 
