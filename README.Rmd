@@ -31,7 +31,14 @@ This is a basic example which shows you how to decompose a MULTIPOLYGON `sf` dat
 library(sf)
 library(sfdct)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
-(nc_triangles <- ct_triangulate(nc))
+(nc_triangles <- ct_triangulate(nc[1:5, c("NAME")]))
+
+(asub <- st_geometry(nc_triangles)[[4]] )
+
+plot(asub, col = "aliceblue")
+
+
+
 ```
 See the vignettes for more examples. 
 

@@ -5,12 +5,16 @@
 \alias{ct_triangulate}
 \alias{ct_triangulate.sfg}
 \alias{ct_triangulate}
+\alias{ct_triangulate.sfc}
+\alias{ct_triangulate}
 \alias{ct_triangulate.sf}
 \title{Constrained Delaunay Triangulation}
 \usage{
 ct_triangulate(x, ...)
 
 \method{ct_triangulate}{sfg}(x, trim = TRUE, ...)
+
+\method{ct_triangulate}{sfc}(x, ...)
 
 \method{ct_triangulate}{sf}(x, trim = TRUE, ...)
 }

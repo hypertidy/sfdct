@@ -130,15 +130,23 @@ ct_triangulate.sfg <- function(x, trim = TRUE, ...){
   tr <- RTriangle::triangulate(ps, ...)
   ## now intersect triangle centroids with original layer to drop holes
 
-  g <- st_sfc(lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
-                     function(x) structure(list(tr$P[c(x, x[1L]), ]), class = c("XY", "POLYGON", "sfg"))), crs = st_crs(x))
+  g <- lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
+                     function(x) structure(list(tr$P[c(x, x[1L]), ]), class = c("XY", "POLYGON", "sfg")))
   drop <- rep(FALSE, length(g))
   if (trim) {
     ## TODO test per-object not per entire set ...
-    drop <- unlist(lapply(st_intersects(st_centroid(g), x), length)) < 1L
+    drop <- unlist(lapply(st_intersects(st_centroid(st_geometrycollection(g)), x), length)) < 1L
   }
-  g[!drop]
+  st_geometrycollection(g[!drop])
 }
+
+#' @export
+#' @name ct_triangulate
+#' @importFrom sf st_precision st_crs st_sfc
+ct_triangulate.sfc <- function(x, ...) {
+  st_sfc(lapply(x, ct_triangulate, ...), crs = st_crs(x), precision = st_precision(x))
+}
+
 #' @export
 #' @name ct_triangulate
 #' @importFrom sf st_geometry_type st_geometry st_sfc st_polygon st_sf st_geometrycollection st_centroid st_intersects st_geometry<- st_crs
