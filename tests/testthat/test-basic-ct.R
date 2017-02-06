@@ -79,9 +79,9 @@ test_that("different inputs work", {
 })
 #
 #
- data("sfzoo", package= "sc")
- data("sfgc", package= "sc")
+# data("sfzoo", package= "sc")
+# data("sfgc", package= "sc")
 
 
-lapply(sfzoo, ct_triangulate)
-ct_triangulate(sfgc) %>% plot(col = "transparent")
+#lapply(sfzoo, ct_triangulate)
+#ct_triangulate(sfgc) %>% plot(col = "transparent")
