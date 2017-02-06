@@ -82,6 +82,15 @@ being bounded to the convex hull.</p>
 
     <pre><span class='fu'>ct_triangulate</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for POINT</span>
+<span class='fu'>ct_triangulate</span>(<span class='no'>x</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for MULTIPOINT</span>
+<span class='fu'>ct_triangulate</span>(<span class='no'>x</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for GEOMETRYCOLLECTION</span>
+<span class='fu'>ct_triangulate</span>(<span class='no'>x</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for sfg</span>
 <span class='fu'>ct_triangulate</span>(<span class='no'>x</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
@@ -115,7 +124,7 @@ by default, but can be retained with the <code>trim</code> argument.</p>
     <p>The triangles are collected as POLYGONs within a GEOMETRYCOLLECTION, and in the case of an `sf` object
 it&#39;s returned within the original input data frame.</p>
     <p>There&#39;s no way in this package to retain the set of shared vertices, or the segment or
-the triangle indices. This is</p>
+the triangle indices. This is fundamental to simple features, that this information is not stored.</p>
     <p>Further arguments may be passed down to the underlying triangulation function <code><a href='http://www.rdocumentation.org/packages/RTriangle/topics/triangulate'>triangulate</a></code>.
 Note that planar coordinates are assumed, no matter what projection the input is in. There&#39;s no
 sensible meaning to a value for <code>a</code> in units m^2 for a layer that is in longitude/latitude, for those
