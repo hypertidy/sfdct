@@ -23,10 +23,7 @@ library(sf)
 library(sfdct)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 nc_triangles <- ct_triangulate(nc)
-## note we have to use st_geometry to get a reasonable map 
-## in short time, unfortunately every single plot call has
-## to be modified, there's no flexibility provided from sf
-## without dropping the data frame content ...
+
 plot(st_geometry(nc_triangles),   col = viridisLite::viridis(nrow(nc_triangles)))
 ```
 

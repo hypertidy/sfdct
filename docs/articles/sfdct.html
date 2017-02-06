@@ -75,10 +75,7 @@ nc &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="kw
 ## epsg (SRID):    4267
 ## proj4string:    +proj=longlat +datum=NAD27 +no_defs</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_triangles &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc)
-## note we have to use st_geometry to get a reasonable map 
-## in short time, unfortunately every single plot call has
-## to be modified, there's no flexibility provided from sf
-## without dropping the data frame content ...
+
 <span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc_triangles),   <span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(nc_triangles)))</code></pre></div>
 <p><img src="sfdct_files/figure-html/example-1.png" width="672"></p>
 <p>We can use the underlying <code>RTriangle::triangulate</code> arguments to hone the triangles we get.</p>
