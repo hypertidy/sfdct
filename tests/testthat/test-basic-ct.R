@@ -58,31 +58,30 @@ test_that("different inputs work", {
   expect_that(nrow(pp_tri), equals(1L))
 })
 #
-# ## from ?st_geometrycollection
-# g1 <- c(st_geometrycollection(list(st_point(1:2), st_linestring(matrix(1:6,3)))),
-#   st_geometrycollection(list(st_multilinestring(list(matrix(11:16,3))))))
-# g2 <- c(st_geometrycollection(list(st_point(1:2), st_linestring(matrix(1:6,3)))),
-#   st_multilinestring(list(matrix(11:16,3))), st_point(5:6),
-#   st_geometrycollection(list(st_point(10:11))))
+## from ?st_geometrycollection
+ g1 <- c(st_geometrycollection(list(st_point(1:2), st_linestring(matrix(1:6,3)))),
+   st_geometrycollection(list(st_multilinestring(list(matrix(11:16,3))))))
+ g2 <- c(st_geometrycollection(list(st_point(1:2), st_linestring(matrix(1:6,3)))),
+   st_multilinestring(list(matrix(11:16,3))), st_point(5:6),
+   st_geometrycollection(list(st_point(10:11))))
+
+ test_that("we can triangulate a geometrycollection", {
+   #st_geometry(nc_triangles) %>% ct_triangulate() %>% plot(col = "transparent")
 #
-# test_that("we can triangulate a geometrycollection", {
-#   st_geometry(nc_triangles) %>% ct_triangulate() %>% plot(col = "transparent")
-#
-#   # expect_that(st_geometry(nc_triangles) %>% ct_triangulate()  %>% is_empty() %>% all(), is_true())
-#   expect_that(ct_triangulate(st_geometry(nc_triangles[1:5, ])), is_a("sfc_GEOMETRYCOLLECTION") )
-#   #expect_that(st_geometry(nc_triangles)[[1]] %>% ct_triangulate()  %>% is_empty(), is_true())
-#   expect_that(st_geometry(nc_triangles)[[1]] %>% ct_triangulate()  %>% is_empty(), is_false())
+    #expect_that(st_geometry(nc_triangles) %>% ct_triangulate()  %>% is_empty() %>% all(), is_true())
+   expect_that(ct_triangulate(st_geometry(nc_triangles[1:5, ])), is_a("sfc_GEOMETRYCOLLECTION") )
+   #expect_that(st_geometry(nc_triangles)[[1]] %>% ct_triangulate()  %>% is_empty(), is_true())
+   expect_that(st_geometry(nc_triangles)[[1]] %>% ct_triangulate()  %>% is_empty(), is_false())
 #   ## give it one of the polygons from the geometrycollection and it's fine
-#   expect_that(st_geometry(nc_triangles)[[1]][[1]] %>% ct_triangulate(a = .00001) %>% is_empty()  , is_false())
+   expect_that(st_geometry(nc_triangles)[[1]][[1]] %>% ct_triangulate(a = .00001) %>% is_empty()  , is_false())
 #
-#   ct_triangulate(g1)
-# })
-#
-#
-# library(sf)
-#
-# nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
-# data("sfzoo", package= "sc")
-# data("sfgc", package= "sc")
+   expect_warning(ct_triangulate(g1), "returning empty")
+})
 #
 #
+ data("sfzoo", package= "sc")
+ data("sfgc", package= "sc")
+
+
+lapply(sfzoo, ct_triangulate)
+ct_triangulate(sfgc) %>% plot(col = "transparent")

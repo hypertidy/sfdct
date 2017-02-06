@@ -47,7 +47,7 @@ paths_as_df <- function(x) {
 #' it's returned within the original input data frame.
 #'
 #' There's no way in this package to retain the set of shared vertices, or the segment or
-#' the triangle indices. This is
+#' the triangle indices. This is fundamental to simple features, that this information is not stored.
 #'
 #' Further arguments may be passed down to the underlying triangulation function \code{\link[RTriangle]{triangulate}}.
 #' Note that planar coordinates are assumed, no matter what projection the input is in. There's no
@@ -102,31 +102,40 @@ ct_triangulate <- function(x,  ...) {
   UseMethod("ct_triangulate")
 }
 #' @export
+#' @name ct_triangulate
+ct_triangulate.POINT <- function(x, trim = TRUE,...) {
+  warning("cannot deal with POINT, returning empty POLYGON in GEOMETRYCOLLECTION")
+  return(st_geometrycollection(st_polygon(dim = "XY")))
+}
+#' @export
+#' @name ct_triangulate
+ct_triangulate.MULTIPOINT <- function(x, trim = TRUE,...) {
+  xa <- m_or_v_XY(x)
+  xa <- xa[!duplicated(paste(xa[, 1], xa[, 2], sep = "_")), , drop = FALSE]
+  if (nrow(xa) < 2) {
+    warning("fewer than 3 coordinates, returning empty POLYGON in GEOMETRYCOLLECTION")
+    return(st_geometrycollection(st_polygon(dim = "XY")))
+  }
+  tr <- RTriangle::triangulate(RTriangle::pslg(xa), ...)
+  g <- st_geometrycollection(lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
+                                    function(x) structure(list(tr$P[c(x, x[1L]), ]), class = c("XY", "POLYGON", "sfg"))))
+  return(g)
+}
+
+#' @export
+#' @name ct_triangulate
+ct_triangulate.GEOMETRYCOLLECTION <- function(x, trim = TRUE, ...){
+  ## note that this treats each sub-geometry like a feature within a set
+  ## each sub's edges won't affect the others
+  ## we need a simplicial complex to do GC properly
+  st_geometrycollection(unlist(lapply(lapply(x, ct_triangulate, trim = trim, ...), unclass), recursive= FALSE))
+}
+#' @export
 #' @importFrom sp over
 #' @importFrom sf st_point st_set_crs
 #' @importFrom methods as
 #' @name ct_triangulate
 ct_triangulate.sfg <- function(x, trim = TRUE, ...){
-  if (inherits(x, "POINT")) {
-     warning("cannot deal with POINT, returning empty POLYGON")
-    return(st_polygon(dim = "XY"))
-  }
-  if (inherits(x, "MULTIPOINT")) {
-    xa <- m_or_v_XY(x)
-    xa <- xa[!duplicated(paste(xa[, 1], xa[, 2], sep = "_")), , drop = FALSE]
-    if (nrow(xa) < 2) {
-      warning("fewer than 3 coordinates, returning empty POLYGON")
-      return(st_polygon(dim = "XY"))
-    }
-    tr <- RTriangle::triangulate(RTriangle::pslg(xa), ...)
-    g <- st_geometrycollection(lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
-                       function(x) structure(list(tr$P[c(x, x[1L]), ]), class = c("XY", "POLYGON", "sfg"))))
-    return(g)
-  }
-  if (inherits(x, "GEOMETRYCOLLECTION")) {
-    warning("GEOMETRYCOLLECTION triangulation not yet supported, returning empty geometry")
-    return(st_geometrycollection())
-  }
   coords <- dplyr::bind_rows(paths_as_df(x), .id = "branch_")
   coords[["vertex_"]] <- as.integer(factor(paste(coords[["x"]], coords[["y"]], sep = "-")))
   b_link_v <- coords[, c("branch_", "vertex_")]
@@ -195,9 +204,6 @@ ct_triangulate.sf <- function(x, trim = TRUE, ...) {
 
     return(st_sf(npoints = nrow(x), geometry = g))
   }
-
-
-
   gtlist <- vector("list", nrow(x))
   gcolname <- attr(x, "sf_column")
   geoms <- st_geometry(x)

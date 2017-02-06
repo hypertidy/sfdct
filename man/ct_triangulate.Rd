@@ -3,6 +3,12 @@
 \name{ct_triangulate}
 \alias{ct_triangulate}
 \alias{ct_triangulate}
+\alias{ct_triangulate.POINT}
+\alias{ct_triangulate}
+\alias{ct_triangulate.MULTIPOINT}
+\alias{ct_triangulate}
+\alias{ct_triangulate.GEOMETRYCOLLECTION}
+\alias{ct_triangulate}
 \alias{ct_triangulate.sfg}
 \alias{ct_triangulate}
 \alias{ct_triangulate.sfc}
@@ -11,6 +17,12 @@
 \title{Constrained Delaunay Triangulation}
 \usage{
 ct_triangulate(x, ...)
+
+\method{ct_triangulate}{POINT}(x, trim = TRUE, ...)
+
+\method{ct_triangulate}{MULTIPOINT}(x, trim = TRUE, ...)
+
+\method{ct_triangulate}{GEOMETRYCOLLECTION}(x, trim = TRUE, ...)
 
 \method{ct_triangulate}{sfg}(x, trim = TRUE, ...)
 
@@ -44,7 +56,7 @@ The triangles are collected as POLYGONs within a GEOMETRYCOLLECTION, and in the 
 it's returned within the original input data frame.
 
 There's no way in this package to retain the set of shared vertices, or the segment or
-the triangle indices. This is
+the triangle indices. This is fundamental to simple features, that this information is not stored.
 
 Further arguments may be passed down to the underlying triangulation function \code{\link[RTriangle]{triangulate}}.
 Note that planar coordinates are assumed, no matter what projection the input is in. There's no

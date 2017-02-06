@@ -51,7 +51,7 @@ Denser triangles, and optionally `D` for ensuring Delaunay criterion is met.
 plot(st_geometry(ct_triangulate(nc[4, ], a = 0.0007, D = TRUE)), col = "transparent")
 ```
 
-![](README-unnamed-chunk-2-1.png)
+![](README-unnamed-chunk-7-1.png)
 
 See the vignettes for more examples.
 

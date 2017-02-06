@@ -1,5 +1,8 @@
 # sfdct 0.0.2
 
+* GEOMETRYCOLLECTION now supported, but only as sub-geometries treated like features - a future release will triangulate
+a simplicial complex of the GC
+
 * introduced use of sp::over so that intersection tests are fast enough, will 
 clean this up in future
 

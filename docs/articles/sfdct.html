@@ -109,11 +109,10 @@ mtriangs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct
 <span class="kw">plot</span>(<span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc[<span class="dv">4</span>, ]$geometry, <span class="dt">q =</span> <span class="dv">35</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="st">"transparent"</span>)</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
 </div>
-<div id="geometry-collection-is-not-fully-supported" class="section level2">
+<div id="geometry-collection-is-in-development" class="section level2">
 <h2 class="hasAnchor">
-<html><body><a href="#geometry-collection-is-not-fully-supported" class="anchor"> </a></body></html>Geometry collection is not fully supported</h2>
-<p>POLYGON triangles in GEOMETRYCOLLECTION will be re-triangulated.</p>
-<p>Points and lines need to be added to the graph.</p>
+<html><body><a href="#geometry-collection-is-in-development" class="anchor"> </a></body></html>Geometry collection is in development</h2>
+<p>POLYGON triangles in GEOMETRYCOLLECTION will be re-triangulated. All vertices in the GC will be included, as well as all edges of all component geometries, but each component is triangulated individually, not with reference to the entire set.</p>
 </div>
 <div id="chaining-together-operations" class="section level2">
 <h2 class="hasAnchor">
@@ -124,6 +123,8 @@ mtriangs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct
 g &lt;-<span class="st">  </span>map_world %&gt;%<span class="st"> </span>dplyr::<span class="kw">filter</span>(<span class="kw">startsWith</span>(ID, <span class="st">"Indonesia"</span>)) %&gt;%<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>() %&gt;%<span class="st"> </span><span class="kw">st_geometry</span>() 
 <span class="kw">plot</span>(g, <span class="dt">col =</span> <span class="st">"aliceblue"</span>, <span class="dt">main =</span> <span class="st">""</span>)</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_triangles[<span class="dv">1</span>:<span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)] %&gt;%<span class="st"> </span><span class="kw">st_transform</span>(<span class="st">"+proj=laea"</span>) %&gt;%<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="dt">a =</span> <span class="fl">2e6</span>) %&gt;%<span class="st"> </span><span class="kw">plot</span>()</code></pre></div>
+<p><img src="sfdct_files/figure-html/unnamed-chunk-2-2.png" width="672"></p>
 </div>
 <div id="holes-better-work-or-else" class="section level2">
 <h2 class="hasAnchor">
@@ -131,7 +132,7 @@ g &lt;-<span class="st">  </span>map_world %&gt;%<span class="st"> </span>dplyr:
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"antarctica"</span>)
 <span class="kw">plot</span>(antarctica)</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="kw">st_difference</span>(antarctica[<span class="dv">1</span>], antarctica[<span class="dv">2</span>, ]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="kw">st_difference</span>(antarctica[<span class="dv">1</span>], antarctica[<span class="dv">2</span>, ]), <span class="dt">a =</span> <span class="fl">5e10</span>)</code></pre></div>
 <pre><code>## Warning: attribute variables are assumed to be spatially constant
 ## throughout all geometries</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(a), <span class="dt">col =</span> <span class="st">"firebrick"</span>)</code></pre></div>
@@ -158,7 +159,7 @@ m %&gt;%<span class="st"> </span><span class="kw"><a href="../reference/ct_trian
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#example">Example</a></li>
-      <li><a href="#geometry-collection-is-not-fully-supported">Geometry collection is not fully supported</a></li>
+      <li><a href="#geometry-collection-is-in-development">Geometry collection is in development</a></li>
       <li><a href="#chaining-together-operations">Chaining together operations</a></li>
       <li><a href="#holes-better-work-or-else">Holes better work (or else)</a></li>
       </ul>

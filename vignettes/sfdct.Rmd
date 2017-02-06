@@ -68,11 +68,12 @@ plot(ct_triangulate(nc[4, ]$geometry, q = 35, D = TRUE), add = TRUE, col = "tran
 
 ```
 
-## Geometry collection is not fully supported
+## Geometry collection is in development
 
-POLYGON triangles in GEOMETRYCOLLECTION will be re-triangulated. 
+POLYGON triangles in GEOMETRYCOLLECTION will be re-triangulated. All vertices in the GC will be included, as well as all 
+edges of all component geometries, but each component is triangulated individually, not with reference to the entire set. 
 
-Points and lines need to be added to the graph. 
+
 
 ## Chaining together operations 
 
@@ -83,6 +84,8 @@ data("map_world", package= "sfdct")
 library(dplyr)
 g <-  map_world %>% dplyr::filter(startsWith(ID, "Indonesia")) %>% ct_triangulate() %>% st_geometry() 
 plot(g, col = "aliceblue", main = "")
+
+nc_triangles[1:2, c(1, 5)] %>% st_transform("+proj=laea") %>% ct_triangulate(a = 2e6) %>% plot()
 ```
 
 ## Holes better work (or else)
@@ -90,7 +93,7 @@ plot(g, col = "aliceblue", main = "")
 ```{r}
 data("antarctica")
 plot(antarctica)
-a <- ct_triangulate(st_difference(antarctica[1], antarctica[2, ]))
+a <- ct_triangulate(st_difference(antarctica[1], antarctica[2, ]), a = 5e10)
 plot(st_geometry(a), col = "firebrick")
 ```
 
