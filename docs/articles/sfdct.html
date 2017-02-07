@@ -53,7 +53,7 @@
       <h1>Constrained triangulation for Simple Features</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2017-02-06</h4>
+            <h4 class="date">2017-02-08</h4>
           </div>
 
     
@@ -133,8 +133,7 @@ g &lt;-<span class="st">  </span>map_world %&gt;%<span class="st"> </span>dplyr:
 <span class="kw">plot</span>(antarctica)</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="kw">st_difference</span>(antarctica[<span class="dv">1</span>], antarctica[<span class="dv">2</span>, ]), <span class="dt">a =</span> <span class="fl">5e10</span>)</code></pre></div>
-<pre><code>## Warning: attribute variables are assumed to be spatially constant
-## throughout all geometries</code></pre>
+<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all geometries</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(a), <span class="dt">col =</span> <span class="st">"firebrick"</span>)</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-3-2.png" width="672"></p>
 <p>The output of <code>ct_triangulate</code> can be the input to another call to it.</p>

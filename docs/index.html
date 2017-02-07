@@ -60,6 +60,14 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#sfdct" class="anchor"> </a>sfdct</h1></div>
 <p>The goal of sfdct is to provide constrained triangulations of simple features.</p>
+<div id="limitations" class="section level2">
+<h2 class="hasAnchor">
+<a href="#limitations" class="anchor"> </a>Limitations</h2>
+<p>Triangulation is performed with respect to the vertices and edges <em>per-feature</em>. This means that each output feature will be composed of triangles that align to all input edges. This will also correspond to the outer hull of any lines or polygons. In a GEOMETRYCOLLECTION the same alignment only applies to geometries individually within the collection, so lines and polygons and point sets are all triangulated as if they were independent.</p>
+<p>A future release will triangulate the GEOMETRYCOLLECTION as it it were one set of edges and vertices. This will also allow an entire data set to be triangulated as one.</p>
+<p>It’s not yet clear to me how to best maintain the original feature identity for the “entire data set” case, or if this even matters. Please get in touch if you are interested!</p>
+<p>More general structures for working with grouped simplicial complex data structures are in the works, but aligning with simple features in this package provides a useful illustration of these nuances and how far we can push the standard tools.</p>
+</div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"> </a>Example</h2>

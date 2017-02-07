@@ -136,6 +136,9 @@ randoms <- function(n, b = 8L) {
 }
 ## go full simplicial complex
 ## normalizing verts is hard
+#' @importFrom tibble as_tibble tibble
+#' @importFrom dplyr bind_rows
+#'
 get_everything <- function(x) {
   coords <- dplyr::bind_rows(paths_as_df(x), .id = "branch_")
   coords[["vertex_"]] <- as.integer(factor(paste(coords[["x"]], coords[["y"]], sep = "-")))

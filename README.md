@@ -24,7 +24,6 @@ This is a basic example which shows you how to decompose a MULTIPOLYGON `sf` dat
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.5.0, GDAL 2.1.1, proj.4 4.9.3
 library(sfdct)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Reading layer `nc' from data source `C:\Users\mdsumner\Documents\R\win-library\3.3\sf\shape\nc.shp' using driver `ESRI Shapefile'
