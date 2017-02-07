@@ -6,6 +6,17 @@ sfdct
 
 The goal of sfdct is to provide constrained triangulations of simple features.
 
+Limitations
+-----------
+
+Triangulation is performed with respect to the vertices and edges *per-feature*. This means that each output feature will be composed of triangles that align to all input edges. This will also correspond to the outer hull of any lines or polygons. In a GEOMETRYCOLLECTION the same alignment only applies to geometries individually within the collection, so lines and polygons and point sets are all triangulated as if they were independent.
+
+A future release will triangulate the GEOMETRYCOLLECTION as it it were one set of edges and vertices. This will also allow an entire data set to be triangulated as one.
+
+It's not yet clear to me how to best maintain the original feature identity for the "entire data set" case, or if this even matters. Please get in touch if you are interested!
+
+More general structures for working with grouped simplicial complex data structures are in the works, but aligning with simple features in this package provides a useful illustration of these nuances and how far we can push the standard tools.
+
 Example
 -------
 
@@ -13,6 +24,7 @@ This is a basic example which shows you how to decompose a MULTIPOLYGON `sf` dat
 
 ``` r
 library(sf)
+#> Linking to GEOS 3.5.0, GDAL 2.1.1, proj.4 4.9.3
 library(sfdct)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 #> Reading layer `nc' from data source `C:\Users\mdsumner\Documents\R\win-library\3.3\sf\shape\nc.shp' using driver `ESRI Shapefile'
