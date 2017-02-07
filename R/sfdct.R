@@ -130,6 +130,52 @@ ct_triangulate.GEOMETRYCOLLECTION <- function(x, trim = TRUE, ...){
   ## we need a simplicial complex to do GC properly
   st_geometrycollection(unlist(lapply(lapply(x, ct_triangulate, trim = trim, ...), unclass), recursive= FALSE))
 }
+
+randoms <- function(n, b = 8L) {
+  unlist(lapply(split(sample(c(letters, 0:9), n * b, replace = TRUE), rep(seq_len(n), each = b)), paste, collapse = ""))
+}
+## go full simplicial complex
+## normalizing verts is hard
+get_everything <- function(x) {
+  coords <- dplyr::bind_rows(paths_as_df(x), .id = "branch_")
+  coords[["vertex_"]] <- as.integer(factor(paste(coords[["x"]], coords[["y"]], sep = "-")))
+  b_link_v <- coords[, c("branch_", "vertex_")]
+  vertices <- coords[!duplicated(b_link_v[["vertex_"]]), c("x", "y", "vertex_")]
+  vertices <- vertices[order(vertices[["vertex_"]]), ]
+
+  segments <- do.call(rbind, lapply(split(b_link_v[["vertex_"]], b_link_v[["branch_"]]),
+                                  function(x) path_to_seg(x))
+  )
+  #return(list(vertices, segments))
+  vertices <- tibble::as_tibble(vertices)
+  vertices[[".vertex"]] <- randoms(nrow(vertices))
+  segments <- tibble::as_tibble(segments)
+  segments[[".segment"]] <- randoms(nrow(segments))
+  segments[["V1"]] <- vertices[[".vertex"]][segments[["V1"]]]
+  segments[["V2"]] <- vertices[[".vertex"]][segments[["V2"]]]
+  list(vertices = vertices, segments = segments)
+}
+
+ct_triangulate_sc <- function(x, ...) {
+  vs <- lapply(x, get_everything)
+  vertices <- dplyr::bind_rows(lapply(vs, "[[", "vertices"))
+  segments <- dplyr::bind_rows(lapply(vs, "[[", "segments"))
+  #vXv <- tibble::tibble(.vertex = vertices[[".vertex"]], VERTEX = as.integer(factor(paste(vertices$x, vertices$y, sep = "_"))))
+  vertices[["VERTEX"]] <- as.integer(factor(paste(vertices$x, vertices$y, sep = "_")))
+  segments[["VERTEX1"]] <- vertices[["VERTEX"]][match(segments[["V1"]], vertices$.vertex)]
+  segments[["VERTEX2"]] <- vertices[["VERTEX"]][match(segments[["V2"]], vertices$.vertex)]
+
+  vertices <- vertices[!duplicated(vertices$VERTEX), ]
+  segments[["V1"]] <- seq_len(nrow(vertices))[match(segments$VERTEX1, vertices$VERTEX)]
+  segments[["V2"]] <- seq_len(nrow(vertices))[match(segments$VERTEX2, vertices$VERTEX)]
+
+  ps <- RTriangle::pslg(P = as.matrix(vertices[, c("x", "y")]), S = as.matrix(segments[, c("V1", "V2")]))
+  tr <- RTriangle::triangulate(ps, ...)
+  g <- lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
+              function(x) structure(list(tr$P[c(x, x[1L]), ]), class = c("XY", "POLYGON", "sfg")))
+
+  st_geometrycollection(g)
+}
 #' @export
 #' @importFrom sp over
 #' @importFrom sf st_point st_set_crs
@@ -145,6 +191,7 @@ ct_triangulate.sfg <- function(x, trim = TRUE, ...){
   segments <- do.call(rbind, lapply(split(b_link_v[["vertex_"]], b_link_v[["branch_"]]),
                                     function(x) path_to_seg(x))
   )
+
   ps <- RTriangle::pslg(P = as.matrix(vertices[, c("x", "y")]), S = segments)
   tr <- RTriangle::triangulate(ps, ...)
   ## now intersect triangle centroids with original layer to drop holes
