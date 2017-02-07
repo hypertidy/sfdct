@@ -2,8 +2,8 @@
 % Please edit documentation in R/sfdct-package.r
 \name{map_world}
 \alias{map_world}
-\title{The 'world' database from the `maps` package.}
+\title{The 'world' database from the \code{maps} package.}
 \description{
-Data is in `sf` form.
+Data is in \code{sf} form.
 See data-raw for original source.
 }

@@ -26,3 +26,4 @@ Suggests: testthat,
     rmarkdown,
     viridisLite
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

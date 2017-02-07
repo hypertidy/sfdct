@@ -45,14 +45,14 @@ Triangulate simple features including the input edges as constraints, rather tha
 being bounded to the convex hull.
 }
 \details{
-This is not a Delaunay Triangulation by default, but is "mostly-Delaunay". Use the `D = TRUE` option,
+This is not a Delaunay Triangulation by default, but is "mostly-Delaunay". Use the \code{D = TRUE} option,
 passed to the underlying function in RTriangle to ensure the criterion is met, as well as edge constraints.
 
 All POLYGON, LINESTRING, MULTIPOLYGON and MULTILINESTRING inputs
 are broken down into line segments that are included in the mesh. Holes are removed
 by default, but can be retained with the \code{trim} argument.
 
-The triangles are collected as POLYGONs within a GEOMETRYCOLLECTION, and in the case of an `sf` object
+The triangles are collected as POLYGONs within a GEOMETRYCOLLECTION, and in the case of an \code{sf} object
 it's returned within the original input data frame.
 
 There's no way in this package to retain the set of shared vertices, or the segment or

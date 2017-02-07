@@ -6,3 +6,7 @@
 \description{
 See data-raw for original source.
 }
+\examples{
+library(sf)
+plot(antarctica, col = rainbow(nrow(antarctica), alpha = 0.4))
+}
