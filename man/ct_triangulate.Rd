@@ -48,7 +48,7 @@ being bounded to the convex hull.
 This is not a Delaunay Triangulation by default, but is "mostly-Delaunay". Use the \code{D = TRUE} option,
 passed to the underlying function in RTriangle to ensure the criterion is met, as well as edge constraints.
 
-All POLYGON, LINESTRING, MULTIPOLYGON and MULTILINESTRING inputs
+All POLYGON, LINESTRING, MULTIPOLYGON, and MULTILINESTRING inputs (including those in GEOMETRYCOLLECTION)
 are broken down into line segments that are included in the mesh. Holes are removed
 by default, but can be retained with the \code{trim} argument.
 
@@ -56,7 +56,7 @@ The triangles are collected as POLYGONs within a GEOMETRYCOLLECTION, and in the 
 it's returned within the original input data frame.
 
 There's no way in this package to retain the set of shared vertices, or the segment or
-the triangle indices. This is fundamental to simple features, that this information is not stored.
+the triangle indices. It is a fundamental feature of the standard, that this information is not represented.
 
 Further arguments may be passed down to the underlying triangulation function \code{\link[RTriangle]{triangulate}}.
 Note that planar coordinates are assumed, no matter what projection the input is in. There's no
@@ -99,8 +99,6 @@ if (packageVersion("sf") <= '0.2.8'){
 nc <- st_transform(nc, "+proj=eqc +ellps=WGS84")
 }
 
-## ignore the warnings from sf, it's not relevant that we be "geographically correct"
-## by some definition of "correct", that is up to the user
 plot(st_triangulate(nc[idx, c("NAME", "geometry")]), col = "grey")
 plot(ct_triangulate(nc[idx, c("NAME", "geometry")]))
 

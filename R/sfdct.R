@@ -39,7 +39,7 @@ paths_as_df <- function(x) {
 #' passed to the underlying function in RTriangle to ensure the criterion is met, as well as edge constraints.
 #'
 #'
-#' All POLYGON, LINESTRING, MULTIPOLYGON and MULTILINESTRING inputs
+#' All POLYGON, LINESTRING, MULTIPOLYGON, and MULTILINESTRING inputs (including those in GEOMETRYCOLLECTION)
 #' are broken down into line segments that are included in the mesh. Holes are removed
 #' by default, but can be retained with the \code{trim} argument.
 #'
@@ -47,7 +47,7 @@ paths_as_df <- function(x) {
 #' it's returned within the original input data frame.
 #'
 #' There's no way in this package to retain the set of shared vertices, or the segment or
-#' the triangle indices. This is fundamental to simple features, that this information is not stored.
+#' the triangle indices. It is a fundamental feature of the standard, that this information is not represented.
 #'
 #' Further arguments may be passed down to the underlying triangulation function \code{\link[RTriangle]{triangulate}}.
 #' Note that planar coordinates are assumed, no matter what projection the input is in. There's no
@@ -93,8 +93,6 @@ paths_as_df <- function(x) {
 #' nc <- st_transform(nc, "+proj=eqc +ellps=WGS84")
 #' }
 #'
-#' ## ignore the warnings from sf, it's not relevant that we be "geographically correct"
-#' ## by some definition of "correct", that is up to the user
 #' plot(st_triangulate(nc[idx, c("NAME", "geometry")]), col = "grey")
 #' plot(ct_triangulate(nc[idx, c("NAME", "geometry")]))
 #'
