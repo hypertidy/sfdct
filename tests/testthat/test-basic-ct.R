@@ -82,6 +82,14 @@ test_that("different inputs work", {
 # data("sfzoo", package= "sc")
 # data("sfgc", package= "sc")
 
-
+test_that("all POINT with args works", {
+          library(sf)
+          library(sfdct)
+          set.seed(1)
+          n <- 150
+          a <- ct_triangulate(st_as_sf(data.frame(x =  rnorm(n), y = rnorm(n)), coords = c("x", "y")), a = 0.1, D = TRUE)
+          expect_that(a, is_a("sf"))
+}
+          )
 #lapply(sfzoo, ct_triangulate)
 #ct_triangulate(sfgc) %>% plot(col = "transparent")

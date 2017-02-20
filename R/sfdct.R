@@ -246,7 +246,7 @@ ct_triangulate.sf <- function(x, trim = TRUE, ...) {
       warning("less than 3 coordinates, returning empty POLYGON")
       return(st_sf(npoints = nrow(x), geometry = st_sfc(st_polygon(dim = "XY"), crs = st_crs(x))))
     }
-    tr <- RTriangle::triangulate(RTriangle::pslg(xa, ...))
+    tr <- RTriangle::triangulate(RTriangle::pslg(xa), ...)
     g <- st_sfc(st_geometrycollection(lapply(split(as.vector(t(tr$T)), rep(seq_len(nrow(tr$T)), each = 3)),
                        function(x) structure(list(tr$P[c(x, x[1L]), ]),class = c("XY", "POLYGON", "sfg")))), crs = st_crs(x))
 

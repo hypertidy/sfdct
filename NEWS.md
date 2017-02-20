@@ -1,3 +1,7 @@
+# sfdct dev
+
+* fixed lurking bug in all-POINT logic, ... was passed to pslg 
+
 # sfdct 0.0.2
 
 * GEOMETRYCOLLECTION is now supported with an internal function only
