@@ -1,3 +1,4 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 [![Travis-CI Build Status](https://travis-ci.org/r-gris/sfdct.svg?branch=master)](https://travis-ci.org/r-gris/sfdct) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-gris/sfdct?branch=master&svg=true)](https://ci.appveyor.com/project/r-gris/sfdct) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sfdct)](https://cran.r-project.org/package=sfdct)
 
@@ -24,10 +25,11 @@ This is a basic example which shows you how to decompose a MULTIPOLYGON `sf` dat
 
 ``` r
 library(sf)
+#> Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3
 library(sfdct)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
-#> Reading layer `nc' from data source `C:\Users\mdsumner\Documents\R\win-library\3.3\sf\shape\nc.shp' using driver `ESRI Shapefile'
-#> converted into: MULTIPOLYGON
+#> Reading layer `nc' from data source `/usr/local/lib/R/site-library/sf/shape/nc.shp' using driver `ESRI Shapefile'
+#> converted into: POLYGON
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
