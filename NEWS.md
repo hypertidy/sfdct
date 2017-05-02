@@ -1,4 +1,6 @@
-# sfdct dev
+# sfdct 0.0.3
+
+* first CRAN release 
 
 * fixed lurking bug in all-POINT logic, ... was passed to pslg 
 

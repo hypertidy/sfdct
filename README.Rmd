@@ -48,16 +48,12 @@ nc <- st_read(system.file("shape/nc.shp", package="sf"))
 
 (asub <- st_geometry(nc_triangles)[[4]] )
 
-plot(asub, col = "aliceblue")
-
-
-
 ```
 
 Denser triangles, and optionally `D` for ensuring Delaunay criterion is met. 
 
 ```{r}
-plot(st_geometry(ct_triangulate(nc[4, ], a = 0.0007, D = TRUE)), col = "transparent")
+st_geometry(ct_triangulate(nc[4, ], a = 0.0007, D = TRUE))
 
 ```
 
