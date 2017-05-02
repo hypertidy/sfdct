@@ -5,7 +5,7 @@
 sfdct
 =====
 
-The goal of sfdct is to provide constrained triangulations of simple features.
+The goal of sfdct is to provide constrained triangulation of simple features.
 
 Limitations
 -----------

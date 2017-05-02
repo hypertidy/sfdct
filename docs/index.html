@@ -66,7 +66,7 @@
 <div id="sfdct" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#sfdct" class="anchor"></a>sfdct</h1></div>
-<p>The goal of sfdct is to provide constrained triangulations of simple features.</p>
+<p>The goal of sfdct is to provide constrained triangulation of simple features.</p>
 <div id="limitations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#limitations" class="anchor"></a>Limitations</h2>
@@ -106,13 +106,16 @@ nc &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="kw
 <span class="co">#&gt; 5 Northampton GEOMETRYCOLLECTION(POLYGON(...</span>
 
 (asub &lt;-<span class="st"> </span><span class="kw">st_geometry</span>(nc_triangles)[[<span class="dv">4</span>]] )
-<span class="co">#&gt; GEOMETRYCOLLECTION(POLYGON((-76.091064453125 36.5035667419434, -76.1581497192383 36.4126892089844, -76.095085144043 36.3489151000977, -76.091064453125 36.5035667419434)), POLYGON((-76.1581497192383 36.4126892089844, -76.1609268188477 36.3918991088867, -76.095085144043 36.3489151000977, -76.1581497192383 36.4126892089844)), POLYGON((-76.095085144043 36.3489151000977, -76.0439529418945 36.3535919189453, -76.0016098022461 36.4189147949219, -76.095085144043 36.3489151000977)), POLYGON((-76.0016098022461 36.4189147949219, -76.0439529418945 36.3535919189453, -76.0173492431641 36.3377304077148, -76.0016098022461 36.4189147949219)), POLYGON((-75.9512557983398 36.3654708862305, -76.0016098022461 36.4189147949219, -76.0173492431641 36.3377304077148, -75.9512557983398 36.3654708862305)), POLYGON((-76.0173492431641 36.3377304077148, -76.0439529418945 36.3535919189453, -76.0328750610352 36.3359756469727, -76.0173492431641 36.3377304077148)), POLYGON((-76.091064453125 36.5035667419434, -76.095085144043 36.3489151000977, -76.0016098022461 36.4189147949219, -76.091064453125 36.5035667419434)), POLYGON((-76.1682891845703 36.4270858764648, -76.091064453125 36.5035667419434, -76.1273956298828 36.5571632385254, -76.1682891845703 36.4270858764648)), POLYGON((-76.1682891845703 36.4270858764648, -76.1581497192383 36.4126892089844, -76.091064453125 36.5035667419434, -76.1682891845703 36.4270858764648)), POLYGON((-76.1273956298828 36.5571632385254, -76.3302536010742 36.5560569763184, -76.1682891845703 36.4270858764648, -76.1273956298828 36.5571632385254)))</span>
-
-<span class="kw">plot</span>(asub, <span class="dt">col =</span> <span class="st">"aliceblue"</span>)</code></pre></div>
-<p><img src="README-example-1.png" width="672"></p>
+<span class="co">#&gt; GEOMETRYCOLLECTION(POLYGON((-76.091064453125 36.5035667419434, -76.1581497192383 36.4126892089844, -76.095085144043 36.3489151000977, -76.091064453125 36.5035667419434)), POLYGON((-76.1581497192383 36.4126892089844, -76.1609268188477 36.3918991088867, -76.095085144043 36.3489151000977, -76.1581497192383 36.4126892089844)), POLYGON((-76.095085144043 36.3489151000977, -76.0439529418945 36.3535919189453, -76.0016098022461 36.4189147949219, -76.095085144043 36.3489151000977)), POLYGON((-76.0016098022461 36.4189147949219, -76.0439529418945 36.3535919189453, -76.0173492431641 36.3377304077148, -76.0016098022461 36.4189147949219)), POLYGON((-75.9512557983398 36.3654708862305, -76.0016098022461 36.4189147949219, -76.0173492431641 36.3377304077148, -75.9512557983398 36.3654708862305)), POLYGON((-76.0173492431641 36.3377304077148, -76.0439529418945 36.3535919189453, -76.0328750610352 36.3359756469727, -76.0173492431641 36.3377304077148)), POLYGON((-76.091064453125 36.5035667419434, -76.095085144043 36.3489151000977, -76.0016098022461 36.4189147949219, -76.091064453125 36.5035667419434)), POLYGON((-76.1682891845703 36.4270858764648, -76.091064453125 36.5035667419434, -76.1273956298828 36.5571632385254, -76.1682891845703 36.4270858764648)), POLYGON((-76.1682891845703 36.4270858764648, -76.1581497192383 36.4126892089844, -76.091064453125 36.5035667419434, -76.1682891845703 36.4270858764648)), POLYGON((-76.1273956298828 36.5571632385254, -76.3302536010742 36.5560569763184, -76.1682891845703 36.4270858764648, -76.1273956298828 36.5571632385254)))</span></code></pre></div>
 <p>Denser triangles, and optionally <code>D</code> for ensuring Delaunay criterion is met.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(<span class="kw"><a href="reference/ct_triangulate.html">ct_triangulate</a></span>(nc[<span class="dv">4</span>, ], <span class="dt">a =</span> <span class="fl">0.0007</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>)), <span class="dt">col =</span> <span class="st">"transparent"</span>)</code></pre></div>
-<p><img src="README-unnamed-chunk-2-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_geometry</span>(<span class="kw"><a href="reference/ct_triangulate.html">ct_triangulate</a></span>(nc[<span class="dv">4</span>, ], <span class="dt">a =</span> <span class="fl">0.0007</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>))
+<span class="co">#&gt; Geometry set for 1 feature </span>
+<span class="co">#&gt; geometry type:  GEOMETRYCOLLECTION</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -76.33025 ymin: 36.07282 xmax: -75.77316 ymax: 36.55716</span>
+<span class="co">#&gt; epsg (SRID):    4267</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=NAD27 +no_defs</span>
+<span class="co">#&gt; GEOMETRYCOLLECTION(POLYGON((-76.0277068229108 3...</span></code></pre></div>
 <p>See the vignettes for more examples.</p>
 <p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>

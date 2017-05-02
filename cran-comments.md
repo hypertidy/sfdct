@@ -14,11 +14,7 @@ New submission
 
 Non-FOSS package license (CC BY-NC-SA 4.0)
 
-Possibly mis-spelled words in DESCRIPTION:
-  triangulations (5:41)
-
 * This is a new submission. 
-* The word 'triangulation' is intended. 
 * The license is inherited from RTriangle, which is necessary. 
 
 ## Reverse dependencies

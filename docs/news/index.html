@@ -84,7 +84,26 @@
     </div>
 
     <div class="contents">
-    NA
+    <div id="sfdct-0-0-3" class="section level1">
+<h1 class="hasAnchor">
+<a href="#sfdct-0-0-3" class="anchor"></a>sfdct 0.0.3</h1>
+<ul>
+<li><p>first CRAN release</p></li>
+<li><p>fixed lurking bug in all-POINT logic, … was passed to pslg</p></li>
+</ul>
+</div>
+    <div id="sfdct-0-0-2" class="section level1">
+<h1 class="hasAnchor">
+<a href="#sfdct-0-0-2" class="anchor"></a>sfdct 0.0.2</h1>
+<ul>
+<li><p>GEOMETRYCOLLECTION is now supported with an internal function only</p></li>
+<li><p>GEOMETRYCOLLECTION now supported, but only as sub-geometries treated like features - a future release will triangulate a simplicial complex of the GC</p></li>
+<li><p>introduced use of sp::over so that intersection tests are fast enough, will clean this up in future</p></li>
+<li><p>now properly returns GEOMETRYCOLLECTION of POLYGON triangles for sfg, sfc, and sf classes. Previous versions always returned either sf or sfc, so this wasn’t consistent.</p></li>
+<li><p>more coverage of types, will at least work for the non-exotics in an sf dataframe</p></li>
+<li><p>first release</p></li>
+</ul>
+</div>
     </div>
   </div>
 
@@ -92,7 +111,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#NA">NA</a></li>
+        <li><a href="#sfdct-0-0-3">0.0.3</a></li>
+        <li><a href="#sfdct-0-0-2">0.0.2</a></li>
       </ul>
     </div>
   </div>
