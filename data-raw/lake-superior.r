@@ -2,5 +2,5 @@ u <- "https://github.com/r-gris/polyggon/raw/master/inst/extdata/water_lake_supe
 download.file(u, file.path("data-raw", basename(u)), mode = "wb")
 
 library(sf)
-lakesuperior <- st_read(file.path("data-raw", basename(u)))
-devtools::use_data(lakesuperior, compress="xz")
+lakesuperior <- read_sf(file.path("data-raw", basename(u)), quiet = TRUE)
+devtools::use_data(lakesuperior, compress="xz", overwrite = TRUE)

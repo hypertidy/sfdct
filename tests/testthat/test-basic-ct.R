@@ -1,7 +1,7 @@
 context("basic ct")
 
 library(sf)
-nc <- st_read(system.file("shape/nc.shp", package="sf"))
+nc <- read_sf(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 nc_triangles <- ct_triangulate(nc)
 
 ## simple freedoms

@@ -27,15 +27,7 @@ This is a basic example which shows you how to decompose a MULTIPOLYGON `sf` dat
 library(sf)
 #> Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3
 library(sfdct)
-nc <- st_read(system.file("shape/nc.shp", package="sf"))
-#> Reading layer `nc' from data source `/usr/local/lib/R/site-library/sf/shape/nc.shp' using driver `ESRI Shapefile'
-#> converted into: POLYGON
-#> Simple feature collection with 100 features and 14 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-#> epsg (SRID):    4267
-#> proj4string:    +proj=longlat +datum=NAD27 +no_defs
+nc <- read_sf(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 (nc_triangles <- ct_triangulate(nc[1:5, c("NAME")]))
 #> Simple feature collection with 5 features and 1 field
 #> geometry type:  GEOMETRYCOLLECTION

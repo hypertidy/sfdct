@@ -82,15 +82,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
 <span class="co">#&gt; Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3</span>
 <span class="kw">library</span>(sfdct)
-nc &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="kw">system.file</span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>))
-<span class="co">#&gt; Reading layer `nc' from data source `/usr/local/lib/R/site-library/sf/shape/nc.shp' using driver `ESRI Shapefile'</span>
-<span class="co">#&gt; converted into: POLYGON</span>
-<span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span>
-<span class="co">#&gt; epsg (SRID):    4267</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=NAD27 +no_defs</span>
+nc &lt;-<span class="st"> </span><span class="kw">read_sf</span>(<span class="kw">system.file</span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>), <span class="dt">quiet =</span> <span class="ot">TRUE</span>)
 (nc_triangles &lt;-<span class="st"> </span><span class="kw"><a href="reference/ct_triangulate.html">ct_triangulate</a></span>(nc[<span class="dv">1</span>:<span class="dv">5</span>, <span class="kw">c</span>(<span class="st">"NAME"</span>)]))
 <span class="co">#&gt; Simple feature collection with 5 features and 1 field</span>
 <span class="co">#&gt; geometry type:  GEOMETRYCOLLECTION</span>
@@ -126,6 +118,8 @@ nc &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="kw
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cran.r-project.org/package=sfdct">https://​cran.r-project.org/​package=sfdct</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/r-gris/sfdct">https://​github.com/​r-gris/​sfdct</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/r-gris/sfdct/issues">https://​github.com/​r-gris/​sfdct/​issues</a>

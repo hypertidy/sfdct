@@ -60,7 +60,7 @@
       <h1>Constrained triangulation for Simple Features</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2017-05-02</h4>
+            <h4 class="date">2017-05-07</h4>
           </div>
 
     
@@ -73,16 +73,8 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)</code></pre></div>
 <pre><code>## Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sfdct)
-nc &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="kw">system.file</span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>))</code></pre></div>
-<pre><code>## Reading layer `nc' from data source `/usr/local/lib/R/site-library/sf/shape/nc.shp' using driver `ESRI Shapefile'
-## converted into: POLYGON
-## Simple feature collection with 100 features and 14 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-## epsg (SRID):    4267
-## proj4string:    +proj=longlat +datum=NAD27 +no_defs</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_triangles &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc)
+nc &lt;-<span class="st"> </span><span class="kw">read_sf</span>(<span class="kw">system.file</span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>), <span class="dt">quiet =</span> <span class="ot">TRUE</span>)
+nc_triangles &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc)
 
 <span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc_triangles),   <span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(nc_triangles)))</code></pre></div>
 <p><img src="sfdct_files/figure-html/example-1.png" width="672"></p>
