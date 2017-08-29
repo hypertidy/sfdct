@@ -5,7 +5,7 @@ bt_wkt <- "POLYGON ((0 0, 0 10, 10 0, 10 10, 0 0))"
 #Square with wrong orientation:
 wo_wkt <- "POLYGON ((0 0, 0 10, 10 10, 10 0, 0 0))"
 #Inner ring with one edge sharing part of an edge of the outer ring:
-ir_or_wkt <- "POLYGON ((0 0, 10 0, 10 10, 0 10, 0 0),(5 2,5 7,10 7, 10 2, 5 2))"
+ir_or_wkt <- "POLYGON ((0 0, 10 0, 10 10, 0 10, 0 0), (5 2,5 7,10 7, 10 2, 5 2))"
 ##Dangling edge:
 de_wkt <- "POLYGON ((0 0, 10 0, 15 5, 10 0, 10 10, 0 10, 0 0))"
 #Outer ring not closed:
