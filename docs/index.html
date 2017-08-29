@@ -29,10 +29,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="/index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="articles/index.html">Articles</a>
+  <a href="articles/sfdct.html">Get Started</a>
+</li>
+<li>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li>
   <a href="news/index.html">News</a>
@@ -80,35 +86,38 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to decompose a MULTIPOLYGON <code>sf</code> data frame object into a GEOMETRYCOLLECTION <code>sf</code> data frame object made of triangles:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
-<span class="co">#&gt; Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3</span>
+<span class="co">#&gt; Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.3</span>
 <span class="kw">library</span>(sfdct)
-nc &lt;-<span class="st"> </span><span class="kw">read_sf</span>(<span class="kw">system.file</span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>), <span class="dt">quiet =</span> <span class="ot">TRUE</span>)
-(nc_triangles &lt;-<span class="st"> </span><span class="kw"><a href="reference/ct_triangulate.html">ct_triangulate</a></span>(nc[<span class="dv">1</span>:<span class="dv">5</span>, <span class="kw">c</span>(<span class="st">"NAME"</span>)]))
+nc &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_read">read_sf</a></span>(<span class="kw">system.file</span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>), <span class="dt">quiet =</span> <span class="ot">TRUE</span>)
+(nc_triangles &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sfdct/topics/ct_triangulate">ct_triangulate</a></span>(nc[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="kw">c</span>(<span class="st">"NAME"</span>)]))
 <span class="co">#&gt; Simple feature collection with 5 features and 1 field</span>
 <span class="co">#&gt; geometry type:  GEOMETRYCOLLECTION</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -81.74107 ymin: 36.07282 xmax: -75.77316 ymax: 36.58965</span>
 <span class="co">#&gt; epsg (SRID):    4267</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=NAD27 +no_defs</span>
-<span class="co">#&gt;          NAME                       geometry</span>
-<span class="co">#&gt; 1        Ashe GEOMETRYCOLLECTION(POLYGON(...</span>
-<span class="co">#&gt; 2   Alleghany GEOMETRYCOLLECTION(POLYGON(...</span>
-<span class="co">#&gt; 3       Surry GEOMETRYCOLLECTION(POLYGON(...</span>
-<span class="co">#&gt; 4   Currituck GEOMETRYCOLLECTION(POLYGON(...</span>
-<span class="co">#&gt; 5 Northampton GEOMETRYCOLLECTION(POLYGON(...</span>
+<span class="co">#&gt; # A tibble: 5 x 2</span>
+<span class="co">#&gt;          NAME          geometry</span>
+<span class="co">#&gt;         &lt;chr&gt;  &lt;simple_feature&gt;</span>
+<span class="co">#&gt; 1        Ashe &lt;GEOMETRYCOLL...&gt;</span>
+<span class="co">#&gt; 2   Alleghany &lt;GEOMETRYCOLL...&gt;</span>
+<span class="co">#&gt; 3       Surry &lt;GEOMETRYCOLL...&gt;</span>
+<span class="co">#&gt; 4   Currituck &lt;GEOMETRYCOLL...&gt;</span>
+<span class="co">#&gt; 5 Northampton &lt;GEOMETRYCOLL...&gt;</span>
 
-(asub &lt;-<span class="st"> </span><span class="kw">st_geometry</span>(nc_triangles)[[<span class="dv">4</span>]] )
-<span class="co">#&gt; GEOMETRYCOLLECTION(POLYGON((-76.091064453125 36.5035667419434, -76.1581497192383 36.4126892089844, -76.095085144043 36.3489151000977, -76.091064453125 36.5035667419434)), POLYGON((-76.1581497192383 36.4126892089844, -76.1609268188477 36.3918991088867, -76.095085144043 36.3489151000977, -76.1581497192383 36.4126892089844)), POLYGON((-76.095085144043 36.3489151000977, -76.0439529418945 36.3535919189453, -76.0016098022461 36.4189147949219, -76.095085144043 36.3489151000977)), POLYGON((-76.0016098022461 36.4189147949219, -76.0439529418945 36.3535919189453, -76.0173492431641 36.3377304077148, -76.0016098022461 36.4189147949219)), POLYGON((-75.9512557983398 36.3654708862305, -76.0016098022461 36.4189147949219, -76.0173492431641 36.3377304077148, -75.9512557983398 36.3654708862305)), POLYGON((-76.0173492431641 36.3377304077148, -76.0439529418945 36.3535919189453, -76.0328750610352 36.3359756469727, -76.0173492431641 36.3377304077148)), POLYGON((-76.091064453125 36.5035667419434, -76.095085144043 36.3489151000977, -76.0016098022461 36.4189147949219, -76.091064453125 36.5035667419434)), POLYGON((-76.1682891845703 36.4270858764648, -76.091064453125 36.5035667419434, -76.1273956298828 36.5571632385254, -76.1682891845703 36.4270858764648)), POLYGON((-76.1682891845703 36.4270858764648, -76.1581497192383 36.4126892089844, -76.091064453125 36.5035667419434, -76.1682891845703 36.4270858764648)), POLYGON((-76.1273956298828 36.5571632385254, -76.3302536010742 36.5560569763184, -76.1682891845703 36.4270858764648, -76.1273956298828 36.5571632385254)))</span></code></pre></div>
+(asub &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(nc_triangles)[[<span class="dv">4</span>]] )
+<span class="co">#&gt; GEOMETRYCOLLECTION (POLYGON ((-76.091064453125 36.5035667419434, -76.1581497192383 36.4126892089844, -76.095085144043 36.3489151000977, -76.091064453125 36.5035667419434)), POLYGON ((-76.1581497192383 36.4126892089844, -76.1609268188477 36.3918991088867, -76.095085144043 36.3489151000977, -76.1581497192383 36.4126892089844)), POLYGON ((-76.095085144043 36.3489151000977, -76.0439529418945 36.3535919189453, -76.0016098022461 36.4189147949219, -76.095085144043 36.3489151000977)), POLYGON ((-76.0016098022461 36.4189147949219, -76.0439529418945 36.3535919189453, -76.0173492431641 36.3377304077148, -76.0016098022461 36.4189147949219)), POLYGON ((-75.9512557983398 36.3654708862305, -76.0016098022461 36.4189147949219, -76.0173492431641 36.3377304077148, -75.9512557983398 36.3654708862305)), POLYGON ((-76.0173492431641 36.3377304077148, -76.0439529418945 36.3535919189453, -76.0328750610352 36.3359756469727, -76.0173492431641 36.3377304077148)), POLYGON ((-76.091064453125 36.5035667419434, -76.095085144043 36.3489151000977, -76.0016098022461 36.4189147949219, -76.091064453125 36.5035667419434)), POLYGON ((-76.1682891845703 36.4270858764648, -76.091064453125 36.5035667419434, -76.1273956298828 36.5571632385254, -76.1682891845703 36.4270858764648)), POLYGON ((-76.1682891845703 36.4270858764648, -76.1581497192383 36.4126892089844, -76.091064453125 36.5035667419434, -76.1682891845703 36.4270858764648)), POLYGON ((-76.1273956298828 36.5571632385254, -76.3302536010742 36.5560569763184, -76.1682891845703 36.4270858764648, -76.1273956298828 36.5571632385254)))</span></code></pre></div>
 <p>Denser triangles, and optionally <code>D</code> for ensuring Delaunay criterion is met.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_geometry</span>(<span class="kw"><a href="reference/ct_triangulate.html">ct_triangulate</a></span>(nc[<span class="dv">4</span>, ], <span class="dt">a =</span> <span class="fl">0.0007</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sfdct/topics/ct_triangulate">ct_triangulate</a></span>(nc[<span class="dv">4</span>, ], <span class="dt">a =</span> <span class="fl">0.0007</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt; Geometry set for 1 feature </span>
 <span class="co">#&gt; geometry type:  GEOMETRYCOLLECTION</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -76.33025 ymin: 36.07282 xmax: -75.77316 ymax: 36.55716</span>
 <span class="co">#&gt; epsg (SRID):    4267</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=NAD27 +no_defs</span>
-<span class="co">#&gt; GEOMETRYCOLLECTION(POLYGON((-76.0277068229108 3...</span></code></pre></div>
+<span class="co">#&gt; GEOMETRYCOLLECTION (POLYGON ((-76.0277068229108...</span></code></pre></div>
 <p>See the vignettes for more examples.</p>
+<p>If you are interested in development in this area note that that <a href="https://github.com/r-gris/cgalgris">cgalgris</a> aims to provide a more powerful facility for finite element decomposition for complex shapes using CGAL.</p>
 <p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 </div>
 </div>
@@ -116,7 +125,8 @@ nc &lt;-<span class="st"> </span><span class="kw">read_sf</span>(<span class="kw
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Links</h2>
+    <h2 class="hasAnchor">
+<a href="#sidebar" class="anchor"></a>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cran.r-project.org/package=sfdct">https://​cran.r-project.org/​package=sfdct</a>
 </li>

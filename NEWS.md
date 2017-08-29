@@ -1,6 +1,6 @@
 # sfdct 0.0.4
 
-* insert spaces to help the computer
+* inserted spaces after the word POLYGON
 
 # sfdct 0.0.3
 

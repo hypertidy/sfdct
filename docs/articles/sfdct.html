@@ -29,10 +29,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../articles/sfdct.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -60,7 +66,7 @@
       <h1>Constrained triangulation for Simple Features</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2017-05-07</h4>
+            <h4 class="date">2017-08-29</h4>
           </div>
 
     
@@ -71,42 +77,42 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to decompose a MULTIPOLYGON <code>sf</code> data frame object into a GEOMETRYCOLLECTION <code>sf</code> data frame object made of triangles:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)</code></pre></div>
-<pre><code>## Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3</code></pre>
+<pre><code>## Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sfdct)
-nc &lt;-<span class="st"> </span><span class="kw">read_sf</span>(<span class="kw">system.file</span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>), <span class="dt">quiet =</span> <span class="ot">TRUE</span>)
-nc_triangles &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc)
+nc &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_read">read_sf</a></span>(<span class="kw">system.file</span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>), <span class="dt">quiet =</span> <span class="ot">TRUE</span>)
+nc_triangles &lt;-<span class="st"> </span><span class="kw">ct_triangulate</span>(nc)
 
-<span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc_triangles),   <span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(nc_triangles)))</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(nc_triangles),   <span class="dt">col =</span> viridisLite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/viridisLite/topics/viridis">viridis</a></span>(<span class="kw">nrow</span>(nc_triangles)))</code></pre></div>
 <p><img src="sfdct_files/figure-html/example-1.png" width="672"></p>
-<p>We can use the underlying <code>RTriangle::triangulate</code> arguments to hone the triangles we get.</p>
+<p>We can use the underlying <code><a href="http://www.rdocumentation.org/packages/RTriangle/topics/triangulate">RTriangle::triangulate</a></code> arguments to hone the triangles we get.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i_feature &lt;-<span class="st"> </span><span class="dv">25</span>
-nc1 &lt;-<span class="st"> </span>nc[<span class="kw">c</span>(i_feature, <span class="kw">unlist</span>(<span class="kw">st_touches</span>(nc[i_feature, ], nc))), ]</code></pre></div>
+nc1 &lt;-<span class="st"> </span>nc[<span class="kw">c</span>(i_feature, <span class="kw">unlist</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/geos_binary_pred">st_touches</a></span>(nc[i_feature, ], nc))), ]</code></pre></div>
 <pre><code>## although coordinates are longitude/latitude, it is assumed that they are planar</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc1),<span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(nc1)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(nc1),<span class="dt">col =</span> viridisLite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/viridisLite/topics/viridis">viridis</a></span>(<span class="kw">nrow</span>(nc1)))</code></pre></div>
 <p><img src="sfdct_files/figure-html/hone-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## subvert st_area because we really don't want m^2
-<span class="kw">st_crs</span>(nc1) &lt;-<span class="st"> </span><span class="ot">NA</span>
-areas &lt;-<span class="st"> </span><span class="kw">st_area</span>(nc1)
-<span class="kw">st_crs</span>(nc1) &lt;-<span class="st"> </span><span class="kw">st_crs</span>(nc)
-nc1_triangles &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc1, <span class="dt">a =</span> <span class="kw">min</span>(areas)/<span class="dv">5</span>)
-bcol &lt;-<span class="st"> </span>viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(nc1_triangles))
-<span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc1_triangles), <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">border =</span> bcol)</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_crs">st_crs</a></span>(nc1) &lt;-<span class="st"> </span><span class="ot">NA</span>
+areas &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/geos_measures">st_area</a></span>(nc1)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_crs">st_crs</a></span>(nc1) &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_crs">st_crs</a></span>(nc)
+nc1_triangles &lt;-<span class="st"> </span><span class="kw">ct_triangulate</span>(nc1, <span class="dt">a =</span> <span class="kw">min</span>(areas)<span class="op">/</span><span class="dv">5</span>)
+bcol &lt;-<span class="st"> </span>viridisLite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/viridisLite/topics/viridis">viridis</a></span>(<span class="kw">nrow</span>(nc1_triangles))
+<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(nc1_triangles), <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">border =</span> bcol)</code></pre></div>
 <p><img src="sfdct_files/figure-html/hone-2.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc2_triangles &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc1, <span class="dt">a =</span> <span class="kw">min</span>(<span class="kw">st_area</span>(<span class="kw">st_set_crs</span>(nc1, <span class="ot">NA</span>)))/<span class="dv">25</span>)
-<span class="kw">plot</span>(<span class="kw">st_geometry</span>(nc2_triangles), <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">border =</span> bcol)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc2_triangles &lt;-<span class="st"> </span><span class="kw">ct_triangulate</span>(nc1, <span class="dt">a =</span> <span class="kw">min</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/geos_measures">st_area</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_crs">st_set_crs</a></span>(nc1, <span class="ot">NA</span>)))<span class="op">/</span><span class="dv">25</span>)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(nc2_triangles), <span class="dt">col =</span> <span class="ot">NA</span>, <span class="dt">border =</span> bcol)</code></pre></div>
 <p><img src="sfdct_files/figure-html/hone-3.png" width="672"></p>
 <p>Get a grouped triangulated set from a MULTIPOINT. Note how these aren’t constrained by the edges of the input polygons (because we threw those away!) but these are controlled to have a smaller maximum area.</p>
 <p>Area is calculated in the native coordinates, assuming “planar coordinates”, with no respect to the real world.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## manual cast to MULTIPOINT originally required
 <span class="co">#st_geometry(nc1) &lt;- st_sfc(lapply(unlist(unlist(st_geometry(nc1), recursive = FALSE), recursive = FALSE), st_multipoint), crs = st_crs(nc1))</span>
-mp_nc1 &lt;-<span class="st"> </span><span class="kw">st_cast</span>(nc1, <span class="st">"MULTIPOINT"</span>)
-mtriangs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc1, <span class="dt">a =</span> <span class="fl">0.0005</span>)
-<span class="kw">plot</span>(<span class="kw">st_geometry</span>(mtriangs), <span class="dt">col =</span> viridisLite::<span class="kw">viridis</span>(<span class="kw">nrow</span>(mtriangs)), <span class="dt">border =</span> <span class="st">"#00000033"</span>)</code></pre></div>
+mp_nc1 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_cast">st_cast</a></span>(nc1, <span class="st">"MULTIPOINT"</span>)
+mtriangs &lt;-<span class="st"> </span><span class="kw">ct_triangulate</span>(nc1, <span class="dt">a =</span> <span class="fl">0.0005</span>)
+<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(mtriangs), <span class="dt">col =</span> viridisLite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/viridisLite/topics/viridis">viridis</a></span>(<span class="kw">nrow</span>(mtriangs)), <span class="dt">border =</span> <span class="st">"#00000033"</span>)</code></pre></div>
 <p><img src="sfdct_files/figure-html/MULTIPOINT-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(nc[<span class="dv">4</span>, ]$geometry)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(nc[<span class="dv">4</span>, ]<span class="op">$</span>geometry)
 ## q, minimum angle
 ## D, Delaunay criterion is met
-<span class="kw">plot</span>(<span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(nc[<span class="dv">4</span>, ]$geometry, <span class="dt">q =</span> <span class="dv">35</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="st">"transparent"</span>)</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw">ct_triangulate</span>(nc[<span class="dv">4</span>, ]<span class="op">$</span>geometry, <span class="dt">q =</span> <span class="dv">35</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="st">"transparent"</span>)</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-1-1.png" width="672"></p>
 </div>
 <div id="geometry-collection-is-in-development" class="section level2">
@@ -128,27 +134,27 @@ mtriangs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g &lt;-<span class="st">  </span>map_world %&gt;%<span class="st"> </span>dplyr::<span class="kw">filter</span>(<span class="kw">startsWith</span>(ID, <span class="st">"Indonesia"</span>)) %&gt;%<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>() %&gt;%<span class="st"> </span><span class="kw">st_geometry</span>() 
-<span class="kw">plot</span>(g, <span class="dt">col =</span> <span class="st">"aliceblue"</span>, <span class="dt">main =</span> <span class="st">""</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g &lt;-<span class="st">  </span>map_world <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">startsWith</span>(ID, <span class="st">"Indonesia"</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ct_triangulate</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>() 
+<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(g, <span class="dt">col =</span> <span class="st">"aliceblue"</span>, <span class="dt">main =</span> <span class="st">""</span>)</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_triangles[<span class="dv">1</span>:<span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)] %&gt;%<span class="st"> </span><span class="kw">st_transform</span>(<span class="st">"+proj=laea"</span>) %&gt;%<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="dt">a =</span> <span class="fl">2e6</span>) %&gt;%<span class="st"> </span><span class="kw">plot</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_triangles[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_transform">st_transform</a></span>(<span class="st">"+proj=laea"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ct_triangulate</span>(<span class="dt">a =</span> <span class="fl">2e6</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>()</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-2-2.png" width="672"></p>
 </div>
 <div id="holes-better-work-or-else" class="section level2">
 <h2 class="hasAnchor">
 <a href="#holes-better-work-or-else" class="anchor"></a>Holes better work (or else)</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"antarctica"</span>)
-<span class="kw">plot</span>(antarctica)</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(antarctica)</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="kw">st_difference</span>(antarctica[<span class="dv">1</span>], antarctica[<span class="dv">2</span>, ]), <span class="dt">a =</span> <span class="fl">5e10</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">ct_triangulate</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/geos_binary_ops">st_difference</a></span>(antarctica[<span class="dv">1</span>], antarctica[<span class="dv">2</span>, ]), <span class="dt">a =</span> <span class="fl">5e10</span>)</code></pre></div>
 <pre><code>## Warning: attribute variables are assumed to be spatially constant
 ## throughout all geometries</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">st_geometry</span>(a), <span class="dt">col =</span> <span class="st">"firebrick"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(a), <span class="dt">col =</span> <span class="st">"firebrick"</span>)</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-3-2.png" width="672"></p>
 <p>The output of <code>ct_triangulate</code> can be the input to another call to it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span>map_world %&gt;%<span class="st"> </span>dplyr::<span class="kw">filter</span>(<span class="kw">startsWith</span>(ID, <span class="st">"Papua New Guinea"</span>))
-plotme &lt;-<span class="st"> </span>function(x) {<span class="kw">plot</span>(<span class="kw">st_geometry</span>(x), <span class="dt">col =</span> <span class="st">"aliceblue"</span>); x}
-m %&gt;%<span class="st"> </span><span class="kw"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="dt">a =</span> <span class="fl">0.2</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>) %&gt;%<span class="st"> </span><span class="kw">plotme</span>() </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span>map_world <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">startsWith</span>(ID, <span class="st">"Papua New Guinea"</span>))
+plotme &lt;-<span class="st"> </span><span class="cf">function</span>(x) {<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(x), <span class="dt">col =</span> <span class="st">"aliceblue"</span>); x}
+m <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ct_triangulate</span>(<span class="dt">a =</span> <span class="fl">0.2</span>, <span class="dt">D =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">plotme</span>() </code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 <pre><code>## Simple feature collection with 1 feature and 1 field
 ## geometry type:  GEOMETRYCOLLECTION
@@ -157,14 +163,15 @@ m %&gt;%<span class="st"> </span><span class="kw"><a href="../reference/ct_trian
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ##                 ID                       geometry
-## 1 Papua New Guinea GEOMETRYCOLLECTION(POLYGON(...</code></pre>
+## 1 Papua New Guinea GEOMETRYCOLLECTION (POLYGON...</code></pre>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#example">Example</a></li>
       <li><a href="#geometry-collection-is-in-development">Geometry collection is in development</a></li>
