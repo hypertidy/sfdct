@@ -1,19 +1,19 @@
 context("prepair-benchmarks")
 
 #A 'bowtie' polygon:
-bt_wkt <- "POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))"
+bt_wkt <- "POLYGON ((0 0, 0 10, 10 0, 10 10, 0 0))"
 #Square with wrong orientation:
-wo_wkt <- "POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))"
+wo_wkt <- "POLYGON ((0 0, 0 10, 10 10, 10 0, 0 0))"
 #Inner ring with one edge sharing part of an edge of the outer ring:
-ir_or_wkt <- "POLYGON((0 0, 10 0, 10 10, 0 10, 0 0),(5 2,5 7,10 7, 10 2, 5 2))"
+ir_or_wkt <- "POLYGON ((0 0, 10 0, 10 10, 0 10, 0 0),(5 2,5 7,10 7, 10 2, 5 2))"
 ##Dangling edge:
-de_wkt <- "POLYGON((0 0, 10 0, 15 5, 10 0, 10 10, 0 10, 0 0))"
+de_wkt <- "POLYGON ((0 0, 10 0, 15 5, 10 0, 10 10, 0 10, 0 0))"
 #Outer ring not closed:
-or_wkt <- "POLYGON((0 0, 10 0, 10 10, 0 10))"
+or_wkt <- "POLYGON ((0 0, 10 0, 10 10, 0 10))"
 #Two adjacent inner rings:
-ar_wkt <- "POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (1 1, 1 8, 3 8, 3 1, 1 1), (3 1, 3 8, 5 8, 5 1, 3 1))"
+ar_wkt <- "POLYGON ((0 0, 10 0, 10 10, 0 10, 0 0), (1 1, 1 8, 3 8, 3 1, 1 1), (3 1, 3 8, 5 8, 5 1, 3 1))"
 #Polygon with an inner ring inside another inner ring:
-irir_wkt <- "POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (2 8, 5 8, 5 2, 2 2, 2 8), (3 3, 4 3, 3 4, 3 3))"
+irir_wkt <- "POLYGON ((0 0, 10 0, 10 10, 0 10, 0 0), (2 8, 5 8, 5 2, 2 2, 2 8), (3 3, 4 3, 3 4, 3 3))"
 library(sf)
 from_wkt <- function(x) st_as_sf(data.frame(geometry = x), wkt = "geometry")
 is_valid_wkt <- function(x) st_is_valid(from_wkt(x))

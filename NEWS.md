@@ -1,3 +1,7 @@
+# sfdct 0.0.4
+
+* insert spaces to help the computer
+
 # sfdct 0.0.3
 
 * first CRAN release 
