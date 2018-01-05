@@ -1,12 +1,12 @@
 Package: sfdct
 Title: Constrained Triangulation for Simple Features
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com")
 Description: Build a constrained 'Delaunay' triangulation from simple features
     objects, applying constraints based on input line segments, and triangle
     properties including maximum area, minimum internal angle.
 Depends:
-    R (>= 3.3.2)
+    R (>= 3.3.0)
 License: CC BY-NC-SA 4.0
 License_restricts_use: yes
 Encoding: UTF-8
@@ -27,5 +27,5 @@ Suggests: testthat,
     viridisLite
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/r-gris/sfdct
-BugReports: https://github.com/r-gris/sfdct/issues
+URL: https://github.com/hypertidy/sfdct
+BugReports: https://github.com/hypertidy/sfdct/issues
