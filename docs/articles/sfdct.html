@@ -29,7 +29,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -66,7 +66,7 @@
       <h1>Constrained triangulation for Simple Features</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2017-08-29</h4>
+            <h4 class="date">2018-01-05</h4>
           </div>
 
     
@@ -77,7 +77,7 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to decompose a MULTIPOLYGON <code>sf</code> data frame object into a GEOMETRYCOLLECTION <code>sf</code> data frame object made of triangles:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)</code></pre></div>
-<pre><code>## Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.3</code></pre>
+<pre><code>## Linking to GEOS 3.5.1, GDAL 2.2.3, proj.4 4.9.3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sfdct)
 nc &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_read">read_sf</a></span>(<span class="kw">system.file</span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>), <span class="dt">quiet =</span> <span class="ot">TRUE</span>)
 nc_triangles &lt;-<span class="st"> </span><span class="kw">ct_triangulate</span>(nc)
@@ -87,7 +87,7 @@ nc_triangles &lt;-<span class="st"> </span><span class="kw">ct_triangulate</span
 <p>We can use the underlying <code><a href="http://www.rdocumentation.org/packages/RTriangle/topics/triangulate">RTriangle::triangulate</a></code> arguments to hone the triangles we get.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i_feature &lt;-<span class="st"> </span><span class="dv">25</span>
 nc1 &lt;-<span class="st"> </span>nc[<span class="kw">c</span>(i_feature, <span class="kw">unlist</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/geos_binary_pred">st_touches</a></span>(nc[i_feature, ], nc))), ]</code></pre></div>
-<pre><code>## although coordinates are longitude/latitude, it is assumed that they are planar</code></pre>
+<pre><code>## although coordinates are longitude/latitude, st_touches assumes that they are planar</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(nc1),<span class="dt">col =</span> viridisLite<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/viridisLite/topics/viridis">viridis</a></span>(<span class="kw">nrow</span>(nc1)))</code></pre></div>
 <p><img src="sfdct_files/figure-html/hone-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## subvert st_area because we really don't want m^2
@@ -138,6 +138,9 @@ mtriangs &lt;-<span class="st"> </span><span class="kw">ct_triangulate</span>(nc
 <span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(g, <span class="dt">col =</span> <span class="st">"aliceblue"</span>, <span class="dt">main =</span> <span class="st">""</span>)</code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_triangles[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_transform">st_transform</a></span>(<span class="st">"+proj=laea"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ct_triangulate</span>(<span class="dt">a =</span> <span class="fl">2e6</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>()</code></pre></div>
+<pre><code>## Warning in classInt::classIntervals(na.omit(values), min(nbreaks, n.unq), :
+## n same as number of different finite values\neach different finite value is
+## a separate class</code></pre>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-2-2.png" width="672"></p>
 </div>
 <div id="holes-better-work-or-else" class="section level2">

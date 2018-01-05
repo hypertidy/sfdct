@@ -1,3 +1,8 @@
+# sfdct 0.0.5
+
+* fix tests after st_cast changes in sf
+
+
 # sfdct 0.0.4
 
 * inserted spaces after the word POLYGON

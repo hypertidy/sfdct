@@ -1,7 +1,7 @@
 context("basic ct")
-
+skip_if_not(utils::packageVersion("sf") >= "0.5.6")
 library(sf)
-nc <- read_sf(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+nc <- read_sf(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
 nc_triangles <- ct_triangulate(nc)
 
 ## simple freedoms
@@ -37,14 +37,20 @@ test_that("different inputs work", {
   nc_mpoint <- st_cast(nc, "MULTIPOINT")
   expect_that(ct_triangulate(nc_mpoint), is_a("sf"))
 
-  expect_warning(ml_nc <- st_cast(nc, "MULTILINESTRING"), "repeating")
+  ## change in January 2017
+  #expect_warning(ml_nc <- st_cast(nc, "MULTILINESTRING"), "repeating")
+  ml_nc <- st_cast(nc, "MULTILINESTRING")
   ml_nc %>%     expect_s3_class("sf") %>% ct_triangulate() %>% expect_s3_class("sf")
 
   lstri <- st_linestring(st_geometry(ml_nc)[[4]][[1]]) %>% ct_triangulate()
   expect_that(lstri %>% is_empty(), is_false())
   ## beware that cast just joins all the paths together
   ## it doesn't drop the first
-  l_nc <- st_cast(nc, "LINESTRING")
+
+  ## change in January 2017
+
+  expect_error(st_cast(nc, "LINESTRING"), "use smaller steps")
+  l_nc <- expect_warning(st_cast(st_cast(nc, "MULTILINESTRING"), "LINESTRING"), "repeating attributes")
   l_nc %>%     expect_s3_class("sf") %>% ct_triangulate() %>% expect_s3_class("sf")
 
   ## but to POLYGON it copies out the extra ones
