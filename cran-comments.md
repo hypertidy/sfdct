@@ -1,6 +1,3 @@
-I changed the Depends to >= 3.3.0 
-
-Thanks!
 
 ## Test environments
 
