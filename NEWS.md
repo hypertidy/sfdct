@@ -1,3 +1,5 @@
+# sfdct 0.0.5.9000
+
 # sfdct 0.0.5
 
 * fix tests after st_cast changes in sf
