@@ -4,7 +4,10 @@ Version: 0.0.6
 Authors@R: person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com")
 Description: Build a constrained 'Delaunay' triangulation from simple features
     objects, applying constraints based on input line segments, and triangle
-    properties including maximum area, minimum internal angle.
+    properties including maximum area, minimum internal angle. The triangulation code
+    in 'RTriangle' uses the method of Cheng, Dey and Shewchuk (2012, ISBN:9781584887300). 
+    For a low-dependency alternative with low-quality path-based constrained 
+    triangulation see <https://CRAN.R-project.org/package=decido>. 
 Depends:
     R (>= 3.3.0)
 License: CC BY-NC-SA 4.0
