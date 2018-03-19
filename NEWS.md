@@ -1,4 +1,6 @@
-# sfdct 0.0.5.9000
+# sfdct 0.0.6
+
+* Fixed polygon repair tests due to changes in `st_is_valid` operation in sf. 
 
 # sfdct 0.0.5
 
