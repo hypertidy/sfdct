@@ -1,4 +1,6 @@
 
+Remove quoting around Delaunay, thank you. 
+
 ## Test environments
 
 * ubuntu 16.04 
