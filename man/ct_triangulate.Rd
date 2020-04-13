@@ -2,17 +2,11 @@
 % Please edit documentation in R/sfdct.R
 \name{ct_triangulate}
 \alias{ct_triangulate}
-\alias{ct_triangulate}
 \alias{ct_triangulate.POINT}
-\alias{ct_triangulate}
 \alias{ct_triangulate.MULTIPOINT}
-\alias{ct_triangulate}
 \alias{ct_triangulate.GEOMETRYCOLLECTION}
-\alias{ct_triangulate}
 \alias{ct_triangulate.sfg}
-\alias{ct_triangulate}
 \alias{ct_triangulate.sfc}
-\alias{ct_triangulate}
 \alias{ct_triangulate.sf}
 \title{Constrained Delaunay Triangulation}
 \usage{

@@ -5,13 +5,11 @@
 
 [![R build
 status](https://github.com/hypertidy/sfdct/workflows/R-CMD-check/badge.svg)](https://github.com/hypertidy/sfdct/actions)
-[![Travis-CI Build
-Status](https://travis-ci.org/hypertidy/sfdct.svg?branch=master)](https://travis-ci.org/hypertidy/sfdct)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/hypertidy/sfdct?branch=master&svg=true)](https://ci.appveyor.com/project/hypertidy/sfdct)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/sfdct)](https://cran.r-project.org/package=sfdct)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/hypertidy/sfdct/master.svg)](https://codecov.io/github/hypertidy/sfdct?branch=master)
+[![R build
+status](https://github.com/hypertidy/sfdct/workflows/pkgdown/badge.svg)](https://github.com/hypertidy/sfdct/actions)
+[![R build
+status](https://github.com/hypertidy/sfdct/workflows/test-coverage/badge.svg)](https://github.com/hypertidy/sfdct/actions)
 <!-- badges: end -->
 
 # sfdct
