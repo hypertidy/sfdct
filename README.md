@@ -85,10 +85,13 @@ st_geometry(ct_triangulate(nc[4, ], a = 0.0007, D = TRUE))
 
 See the vignettes for more examples.
 
-If you are interested in development in this area see
-[laridae](https://github.com/hypertidy/laridae) which aims to provide a
-more powerful facility for finite element decomposition for complex
-shapes using CGAL. We’ll also put an ear-clipping version, from rgl into
+If you are interested in development in this area see [anglr
+package](https://github.com/hypertidy/anglr) a workhorse for
+triangulating spatial data into meshes. A development project
+[laridae](https://github.com/hypertidy/laridae) aims to provide a more
+powerful facility for finite element decomposition for complex shapes
+using CGAL. There is an ear-clipping version, from the [decido
+package](https://CRAN.r-project.org/package=decido) in
 [silicate](https://github.com/hypertidy/silicate)
 
 Please note that this project is released with a [Contributor Code of
