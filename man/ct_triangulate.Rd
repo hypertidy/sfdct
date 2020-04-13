@@ -94,6 +94,7 @@ nc <- st_transform(nc, "+proj=eqc +ellps=WGS84")
 }
 
 plot(st_triangulate(nc[idx, c("NAME", "geometry")]), col = "grey")
-plot(ct_triangulate(nc[idx, c("NAME", "geometry")]))
 
+## Warning ct_triangulate does correctly triangulate longitude/latitude data
+plot(ct_triangulate(nc[idx, c("NAME", "geometry")]))
 }
