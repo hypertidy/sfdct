@@ -9,3 +9,4 @@
 ^CONDUCT\.md$
 docs
 data-raw
+^\.github$
