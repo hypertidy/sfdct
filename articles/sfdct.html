@@ -31,18 +31,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sfdct</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/sfdct.html">Get started</a>
 </li>
@@ -56,7 +50,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/hypertidy/sfdct/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -70,13 +64,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="sfdct_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Constrained triangulation for Simple Features</h1>
                         <h4 class="author">Michael D. Sumner</h4>
             
-            <h4 class="date">2020-04-13</h4>
+            <h4 class="date">2020-12-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hypertidy/sfdct/blob/master/vignettes/sfdct.Rmd"><code>vignettes/sfdct.Rmd</code></a></small>
       <div class="hidden name"><code>sfdct.Rmd</code></div>
@@ -89,43 +83,51 @@
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to decompose a MULTIPOLYGON <code>sf</code> data frame object into a GEOMETRYCOLLECTION <code>sf</code> data frame object made of triangles:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">sf</span>)</pre></body></html></div>
-<pre><code>## Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0</code></pre>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">sfdct</span>)
-<span class="no">nc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_read.html">read_sf</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"shape/nc.shp"</span>, <span class="kw">package</span><span class="kw">=</span><span class="st">"sf"</span>), <span class="kw">quiet</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="no">nc_triangles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="no">nc</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></code></pre></div>
+<pre><code>## Linking to GEOS 3.8.1, GDAL 3.1.4, PROJ 6.3.1</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hypertidy/sfdct">sfdct</a></span><span class="op">)</span>
+<span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package<span class="op">=</span><span class="st">"sf"</span><span class="op">)</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">nc_triangles</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(<span class="no">nc_triangles</span>),   <span class="kw">col</span> <span class="kw">=</span> <span class="kw pkg">viridisLite</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">nc_triangles</span>)))</pre></body></html></div>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">nc_triangles</span><span class="op">)</span>,   col <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">nc_triangles</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="sfdct_files/figure-html/example-1.png" width="700"></p>
 <p>We can use the underlying <code><a href="https://rdrr.io/pkg/RTriangle/man/triangulate.html">RTriangle::triangulate</a></code> arguments to hone the triangles we get.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">i_feature</span> <span class="kw">&lt;-</span> <span class="fl">25</span>
-<span class="no">nc1</span> <span class="kw">&lt;-</span> <span class="no">nc</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">i_feature</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/geos_binary_pred.html">st_touches</a></span>(<span class="no">nc</span>[<span class="no">i_feature</span>, ], <span class="no">nc</span>))), ]</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">i_feature</span> <span class="op">&lt;-</span> <span class="fl">25</span>
+<span class="va">nc1</span> <span class="op">&lt;-</span> <span class="va">nc</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">i_feature</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html">st_touches</a></span><span class="op">(</span><span class="va">nc</span><span class="op">[</span><span class="va">i_feature</span>, <span class="op">]</span>, <span class="va">nc</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, <span class="op">]</span></code></pre></div>
 <pre><code>## although coordinates are longitude/latitude, st_touches assumes that they are planar</code></pre>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(<span class="no">nc1</span>),<span class="kw">col</span> <span class="kw">=</span> <span class="kw pkg">viridisLite</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">nc1</span>)))</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">nc1</span><span class="op">)</span>,col <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">nc1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="sfdct_files/figure-html/hone-1.png" width="700"></p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co">## subvert st_area because we really don't want m^2</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_crs.html">st_crs</a></span>(<span class="no">nc1</span>) <span class="kw">&lt;-</span> <span class="fl">NA</span>
-<span class="no">areas</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sf/man/geos_measures.html">st_area</a></span>(<span class="no">nc1</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_crs.html">st_crs</a></span>(<span class="no">nc1</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_crs.html">st_crs</a></span>(<span class="no">nc</span>)
-<span class="no">nc1_triangles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="no">nc1</span>, <span class="kw">a</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">areas</span>)/<span class="fl">5</span>)
-<span class="no">bcol</span> <span class="kw">&lt;-</span> <span class="kw pkg">viridisLite</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">nc1_triangles</span>))
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(<span class="no">nc1_triangles</span>), <span class="kw">col</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">border</span> <span class="kw">=</span> <span class="no">bcol</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## subvert st_area because we really don't want m^2</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">nc1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
+<span class="va">areas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_area</a></span><span class="op">(</span><span class="va">nc1</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">nc1</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span>
+<span class="va">nc1_triangles</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span><span class="op">(</span><span class="va">nc1</span>, a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">areas</span><span class="op">)</span><span class="op">/</span><span class="fl">5</span><span class="op">)</span>
+<span class="va">bcol</span> <span class="op">&lt;-</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">nc1_triangles</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">nc1_triangles</span><span class="op">)</span>, col <span class="op">=</span> <span class="cn">NA</span>, border <span class="op">=</span> <span class="va">bcol</span><span class="op">)</span></code></pre></div>
 <p><img src="sfdct_files/figure-html/hone-2.png" width="700"></p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">nc2_triangles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="no">nc1</span>, <span class="kw">a</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/geos_measures.html">st_area</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_crs.html">st_set_crs</a></span>(<span class="no">nc1</span>, <span class="fl">NA</span>)))/<span class="fl">25</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(<span class="no">nc2_triangles</span>), <span class="kw">col</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">border</span> <span class="kw">=</span> <span class="no">bcol</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nc2_triangles</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span><span class="op">(</span><span class="va">nc1</span>, a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_measures.html">st_area</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_set_crs</a></span><span class="op">(</span><span class="va">nc1</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="fl">25</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">nc2_triangles</span><span class="op">)</span>, col <span class="op">=</span> <span class="cn">NA</span>, border <span class="op">=</span> <span class="va">bcol</span><span class="op">)</span></code></pre></div>
 <p><img src="sfdct_files/figure-html/hone-3.png" width="700"></p>
 <p>Get a grouped triangulated set from a MULTIPOINT. Note how these aren’t constrained by the edges of the input polygons (because we threw those away!) but these are controlled to have a smaller maximum area.</p>
 <p>Area is calculated in the native coordinates, assuming “planar coordinates”, with no respect to the real world.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co">## manual cast to MULTIPOINT originally required</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## manual cast to MULTIPOINT originally required</span>
 <span class="co">#st_geometry(nc1) &lt;- st_sfc(lapply(unlist(unlist(st_geometry(nc1), recursive = FALSE), recursive = FALSE), st_multipoint), crs = st_crs(nc1))</span>
-<span class="no">mp_nc1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_cast.html">st_cast</a></span>(<span class="no">nc1</span>, <span class="st">"MULTIPOINT"</span>)
-<span class="no">mtriangs</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="no">nc1</span>, <span class="kw">a</span> <span class="kw">=</span> <span class="fl">0.0005</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(<span class="no">mtriangs</span>), <span class="kw">col</span> <span class="kw">=</span> <span class="kw pkg">viridisLite</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">mtriangs</span>)), <span class="kw">border</span> <span class="kw">=</span> <span class="st">"#00000033"</span>)</pre></body></html></div>
+<span class="va">mp_nc1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="va">nc1</span>, <span class="st">"MULTIPOINT"</span><span class="op">)</span>
+<span class="va">mtriangs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span><span class="op">(</span><span class="va">nc1</span>, a <span class="op">=</span> <span class="fl">0.0005</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">mtriangs</span><span class="op">)</span>, col <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridisLite/man/viridis.html">viridis</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtriangs</span><span class="op">)</span><span class="op">)</span>, border <span class="op">=</span> <span class="st">"#00000033"</span><span class="op">)</span></code></pre></div>
 <p><img src="sfdct_files/figure-html/MULTIPOINT-1.png" width="700"></p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="no">nc</span>[<span class="fl">4</span>, ]$<span class="no">geometry</span>)
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">nc</span><span class="op">[</span><span class="fl">4</span>, <span class="op">]</span><span class="op">$</span><span class="va">geometry</span><span class="op">)</span>
 <span class="co">## q, minimum angle</span>
 <span class="co">## D, Delaunay criterion is met</span>
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="no">nc</span>[<span class="fl">4</span>, ]$<span class="no">geometry</span>, <span class="kw">q</span> <span class="kw">=</span> <span class="fl">35</span>, <span class="kw">D</span> <span class="kw">=</span> <span class="fl">TRUE</span>), <span class="kw">add</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"transparent"</span>)</pre></body></html></div>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span><span class="op">(</span><span class="va">nc</span><span class="op">[</span><span class="fl">4</span>, <span class="op">]</span><span class="op">$</span><span class="va">geometry</span>, q <span class="op">=</span> <span class="fl">35</span>, D <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, col <span class="op">=</span> <span class="st">"transparent"</span><span class="op">)</span></code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
 </div>
 <div id="geometry-collection-is-in-development" class="section level2">
@@ -137,8 +139,9 @@
 <h2 class="hasAnchor">
 <a href="#chaining-together-operations" class="anchor"></a>Chaining together operations</h2>
 <p>We can use piping to chain things together.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"map_world"</span>, <span class="kw">package</span><span class="kw">=</span> <span class="st">"sfdct"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"map_world"</span>, package<span class="op">=</span> <span class="st">"sfdct"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: 'dplyr'</code></pre>
 <pre><code>## The following objects are masked from 'package:stats':
@@ -147,33 +150,39 @@
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">g</span> <span class="kw">&lt;-</span>  <span class="no">map_world</span> <span class="kw">%&gt;%</span> <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/startsWith.html">startsWith</a></span>(<span class="no">ID</span>, <span class="st">"Indonesia"</span>)) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>()
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="no">g</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"aliceblue"</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">""</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span>  <span class="va">map_world</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/startsWith.html">startsWith</a></span><span class="op">(</span><span class="va">ID</span>, <span class="st">"Indonesia"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="op">)</span> 
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">g</span>, col <span class="op">=</span> <span class="st">"aliceblue"</span>, main <span class="op">=</span> <span class="st">""</span><span class="op">)</span></code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">nc_triangles</span>[<span class="fl">1</span>:<span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">5</span>)] <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_transform.html">st_transform</a></span>(<span class="st">"+proj=laea"</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="kw">a</span> <span class="kw">=</span> <span class="fl">2e6</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nc_triangles</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">"+proj=laea"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">2e6</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
 </div>
 <div id="holes-better-work-or-else" class="section level2">
 <h2 class="hasAnchor">
 <a href="#holes-better-work-or-else" class="anchor"></a>Holes better work (or else)</h2>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"antarctica"</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="no">antarctica</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"antarctica"</span><span class="op">)</span>
+<span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="va">antarctica</span><span class="op">)</span></code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">a</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/geos_binary_ops.html">st_difference</a></span>(<span class="no">antarctica</span>[<span class="fl">1</span>], <span class="no">antarctica</span>[<span class="fl">2</span>, ]), <span class="kw">a</span> <span class="kw">=</span> <span class="fl">5e10</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_difference</a></span><span class="op">(</span><span class="va">antarctica</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">antarctica</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span><span class="op">)</span>, a <span class="op">=</span> <span class="fl">5e10</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all
 ## geometries</code></pre>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(<span class="no">a</span>), <span class="kw">col</span> <span class="kw">=</span> <span class="st">"firebrick"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span></code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
 <p>The output of <code>ct_triangulate</code> can be the input to another call to it.</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">m</span> <span class="kw">&lt;-</span> <span class="no">map_world</span> <span class="kw">%&gt;%</span> <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/startsWith.html">startsWith</a></span>(<span class="no">ID</span>, <span class="st">"Papua New Guinea"</span>))
-<span class="no">plotme</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) {<span class="fu"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/sf/man/st_geometry.html">st_geometry</a></span>(<span class="no">x</span>), <span class="kw">col</span> <span class="kw">=</span> <span class="st">"aliceblue"</span>); <span class="no">x</span>}
-<span class="no">m</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span>(<span class="kw">a</span> <span class="kw">=</span> <span class="fl">0.2</span>, <span class="kw">D</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span> <span class="fu">plotme</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="va">map_world</span> <span class="op">%&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/startsWith.html">startsWith</a></span><span class="op">(</span><span class="va">ID</span>, <span class="st">"Papua New Guinea"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">plotme</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_geometry</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"aliceblue"</span><span class="op">)</span>; <span class="va">x</span><span class="op">}</span>
+<span class="va">m</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/ct_triangulate.html">ct_triangulate</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">0.2</span>, D <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">plotme</span><span class="op">(</span><span class="op">)</span> </code></pre></div>
 <p><img src="sfdct_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <pre><code>## Simple feature collection with 1 feature and 1 field
 ## geometry type:  GEOMETRYCOLLECTION
 ## dimension:      XY
 ## bbox:           xmin: 140.8623 ymin: -11.63057 xmax: 155.9576 ymax: -1.353223
-## CRS:            EPSG:4326
+## geographic CRS: WGS 84
 ##                         geometry               ID
 ## 1 GEOMETRYCOLLECTION (POLYGON... Papua New Guinea</code></pre>
 </div>
@@ -194,7 +203,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
