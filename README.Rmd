@@ -66,5 +66,6 @@ See the vignettes for more examples.
 If you are interested in development in this area see [anglr package](https://github.com/hypertidy/anglr) a workhorse for triangulating spatial data into meshes. A development project [laridae](https://github.com/hypertidy/laridae) aims to provide a more powerful facility
 for finite element decomposition for complex shapes using CGAL.  There is an ear-clipping version, from the [decido package](https://CRAN.r-project.org/package=decido) in [silicate](https://github.com/hypertidy/silicate)
 
+--- 
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/hypertidy/sfdct/blob/master/CONDUCT.md). By participating in this project you agree to abide by its terms.

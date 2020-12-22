@@ -1,9 +1,9 @@
 
-Remove quoting around Delaunay, thank you. 
+Fixed failing test in upcoming GEOS uprade (3.9.0). 
 
 ## Test environments
 
-* ubuntu 16.04 
+* ubuntu 18.04 
 * win-builder (devel and release)
 
 ## R CMD check results

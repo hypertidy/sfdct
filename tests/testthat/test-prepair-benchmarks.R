@@ -38,7 +38,10 @@ test_that("Square with wrong orientation", {
   context(" round-trip is identical")
   expect_true(sf::st_as_text( st_geometry(from_wkt(wkt))) == wkt)
   context(" round-trip after fix is a different string")
-  expect_false(sf::st_as_text( st_geometry(fix_wkt(wkt))) == wkt)
+  if (sf::sf_extSoftVersion()["GEOS"] < "3.9.0") {
+    ## changed in 3.9.0 https://github.com/hypertidy/sfdct/issues/13
+   expect_false(sf::st_as_text( st_geometry(fix_wkt(wkt))) == wkt)
+  }
 })
 
 test_that("Inner ring with one edge sharing part of an edge of the outer ring:", {

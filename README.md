@@ -59,7 +59,7 @@ nc <- read_sf(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 #> geographic CRS: NAD27
 #> # A tibble: 5 x 2
 #>   NAME                                                                  geometry
-#>   <chr>                                                 <GEOMETRYCOLLECTION [°]>
+#> * <chr>                                                 <GEOMETRYCOLLECTION [°]>
 #> 1 Ashe       GEOMETRYCOLLECTION (POLYGON ((-81.54084 36.27251, -81.47276 36.234…
 #> 2 Alleghany  GEOMETRYCOLLECTION (POLYGON ((-81.24069 36.37942, -81.23989 36.365…
 #> 3 Surry      GEOMETRYCOLLECTION (POLYGON ((-80.87086 36.32462, -80.87438 36.233…
@@ -94,6 +94,8 @@ using CGAL. There is an ear-clipping version, from the [decido
 package](https://CRAN.r-project.org/package=decido) in
 [silicate](https://github.com/hypertidy/silicate)
 
+-----
+
 Please note that this project is released with a [Contributor Code of
-Conduct](CONDUCT.md). By participating in this project you agree to
-abide by its terms.
+Conduct](https://github.com/hypertidy/sfdct/blob/master/CONDUCT.md). By
+participating in this project you agree to abide by its terms.
