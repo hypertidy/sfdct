@@ -85,18 +85,14 @@ paths_as_df <- function(x) {
 #' library(sf)
 #' nc <- read_sf(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 #' nc_triangles <- ct_triangulate(nc[, c("NAME", "geometry")])
-#' plot(nc[, "NAME"])
+#' plot(nc[, "NAME"], reset = FALSE)
 #' plot(nc_triangles, add = TRUE, col = NA, lty = "dotted")
 #' idx <- c(4, 5, 6, 7, 8, 20, 21)
-#' op <- par(mfrow = c(2, 1))
-#' if (packageVersion("sf") <= '0.2.8'){
-#' nc <- st_transform(nc, "+proj=eqc +ellps=WGS84")
-#' }
 #'
-#' plot(st_triangulate(nc[idx, c("NAME", "geometry")]), col = "grey")
 #'
-#' ## Warning ct_triangulate does correctly triangulate longitude/latitude data
-#' plot(ct_triangulate(nc[idx, c("NAME", "geometry")]))
+#' ## Warning ct_triangulate just does what you asked
+#' plot(ct_triangulate(nc[idx, c("NAME", "geometry")]), reset = FALSE)
+#' plot(nc[, 1], add = TRUE, col = NA, border = "grey", lwd = 4)
 ct_triangulate <- function(x,  ...) {
 
   UseMethod("ct_triangulate")

@@ -1,3 +1,7 @@
+# sfdct dev
+
+* Avoid GEOS sf problem in example, thanks Roger Bivand https://github.com/hypertidy/sfdct/issues/15. 
+
 # sfdct 0.1.0
 
 * Fixed failing test due to new more-robust GEOS (3.9.0), thanks Roger Bivand https://github.com/hypertidy/sfdct/issues/13. 
