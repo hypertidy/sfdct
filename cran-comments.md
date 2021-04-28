@@ -1,5 +1,5 @@
 
-Fixed failing test in upcoming GEOS uprade (3.9.0). 
+Fixed failing test in upcoming GEOS uprade (3.10.0). 
 
 ## Test environments
 
