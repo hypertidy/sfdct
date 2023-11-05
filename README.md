@@ -2,14 +2,10 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/hypertidy/sfdct/workflows/R-CMD-check/badge.svg)](https://github.com/hypertidy/sfdct/actions)
+[![R-CMD-check](https://github.com/hypertidy/sfdct/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hypertidy/sfdct/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/sfdct)](https://cran.r-project.org/package=sfdct)
 [![R build
 status](https://github.com/hypertidy/sfdct/workflows/pkgdown/badge.svg)](https://github.com/hypertidy/sfdct/actions)
-[![R build
-status](https://github.com/hypertidy/sfdct/workflows/test-coverage/badge.svg)](https://github.com/hypertidy/sfdct/actions)
-[![R-CMD-check](https://github.com/hypertidy/sfdct/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/hypertidy/sfdct/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # sfdct
