@@ -1,10 +1,11 @@
 
-Fixed failing test in upcoming GEOS uprade (3.9.0). 
+Fixed namespace thanks to CRAN. 
 
 ## Test environments
 
-* ubuntu 18.04 
+* linux
 * win-builder (devel and release)
+* mac builder (release)
 
 ## R CMD check results
 

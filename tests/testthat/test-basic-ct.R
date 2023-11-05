@@ -43,7 +43,7 @@ test_that("different inputs work", {
   ml_nc %>%     expect_s3_class("sf") %>% ct_triangulate() %>% expect_s3_class("sf")
 
   lstri <- st_linestring(st_geometry(ml_nc)[[4]][[1]]) %>% ct_triangulate()
-  expect_that(lstri %>% is_empty(), is_false())
+  expect_false(lstri %>% is_empty())
   ## beware that cast just joins all the paths together
   ## it doesn't drop the first
 
@@ -77,9 +77,9 @@ test_that("different inputs work", {
     #expect_that(st_geometry(nc_triangles) %>% ct_triangulate()  %>% is_empty() %>% all(), is_true())
    expect_that(ct_triangulate(st_geometry(nc_triangles[1:5, ])), is_a("sfc_GEOMETRYCOLLECTION") )
    #expect_that(st_geometry(nc_triangles)[[1]] %>% ct_triangulate()  %>% is_empty(), is_true())
-   expect_that(st_geometry(nc_triangles)[[1]] %>% ct_triangulate()  %>% is_empty(), is_false())
+   expect_false(st_geometry(nc_triangles)[[1]] %>% ct_triangulate()  %>% is_empty())
 #   ## give it one of the polygons from the geometrycollection and it's fine
-   expect_that(st_geometry(nc_triangles)[[1]][[1]] %>% ct_triangulate(a = .00001) %>% is_empty()  , is_false())
+   expect_false(st_geometry(nc_triangles)[[1]][[1]] %>% ct_triangulate(a = .00001) %>% is_empty())
 #
    expect_warning(ct_triangulate(g1), "returning empty")
 })
