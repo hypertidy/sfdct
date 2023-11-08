@@ -116,25 +116,42 @@ the triangle indices. It is a fundamental feature of the standard, that this inf
 Note that planar coordinates are assumed, no matter what projection the input is in. There's no
 sensible meaning to a value for <code>a</code> in units m^2 for a layer that is in longitude/latitude, for those
 use "area in square degrees", the straightforward meaning in planar coordinates.
-These arguments are, from the documentation of that function:</p><ul><li><p>a a Maximum triangle area. If specified, triangles cannot be
-larger than this area.</p></li>
-<li><p>q Minimum triangle angle in degrees.</p></li>
-<li><p>Y If <code>TRUE</code> prohibits the insertion of Steiner points
-on the mesh boundary.</p></li>
-<li><p>j If <code>TRUE</code> jettisons vertices that are not part of
-the final triangulation from the output.</p></li>
-<li><p>D If <code>TRUE</code> produce a conforming Delaunay
+These arguments are, from the documentation of that function:</p><dl><dt>a</dt>
+<dd><p>a Maximum triangle area. If specified, triangles cannot be
+larger than this area.</p></dd>
+
+<dt>q</dt>
+<dd><p>Minimum triangle angle in degrees.</p></dd>
+
+<dt>Y</dt>
+<dd><p>If <code>TRUE</code> prohibits the insertion of Steiner points
+on the mesh boundary.</p></dd>
+
+<dt>j</dt>
+<dd><p>If <code>TRUE</code> jettisons vertices that are not part of
+the final triangulation from the output.</p></dd>
+
+<dt>D</dt>
+<dd><p>If <code>TRUE</code> produce a conforming Delaunay
 triangulation. This ensures that all the triangles in the mesh are
 truly Delaunay, and not merely constrained Delaunay.  This option
 invokes Ruppert's original algorithm, which splits every
 subsegment whose diametral circle is encroached.  It usually
-increases the number of vertices and triangles.</p></li>
-<li><p>S Specifies the maximum number of added Steiner points.</p></li>
-<li><p>V Verbosity level. Specify higher values  for more detailed
-information about what the Triangle library is doing.</p></li>
-<li><p>Q If <code>TRUE</code> suppresses all explanation of what the
-Triangle library is doing, unless an error occurs.</p></li>
-</ul></div>
+increases the number of vertices and triangles.</p></dd>
+
+<dt>S</dt>
+<dd><p>Specifies the maximum number of added Steiner points.</p></dd>
+
+<dt>V</dt>
+<dd><p>Verbosity level. Specify higher values  for more detailed
+information about what the Triangle library is doing.</p></dd>
+
+<dt>Q</dt>
+<dd><p>If <code>TRUE</code> suppresses all explanation of what the
+Triangle library is doing, unless an error occurs.</p></dd>
+
+
+</dl></div>
     <div id="note">
     <h2>Note</h2>
     <p>GEOMETRYCOLLECTION as input is not yet supported.</p>
