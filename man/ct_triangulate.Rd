@@ -57,7 +57,7 @@ Note that planar coordinates are assumed, no matter what projection the input is
 sensible meaning to a value for \code{a} in units m^2 for a layer that is in longitude/latitude, for those
 use "area in square degrees", the straightforward meaning in planar coordinates.
 These arguments are, from the documentation of that function:
-\itemize{
+\describe{
 \item{a}{ a Maximum triangle area. If specified, triangles cannot be
 larger than this area.}
 \item{q}{ Minimum triangle angle in degrees.}

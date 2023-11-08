@@ -12,7 +12,7 @@ NULL
 #' Triangulate simple features including the input edges as constraints, rather than
 #' being bounded to the convex hull.
 #'
-#' @name sfdct
+#' @name sfdct-package
 #' @docType package
 NULL
 

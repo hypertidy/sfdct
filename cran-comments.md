@@ -1,5 +1,8 @@
+## sfdct 0.2.0
 
-Fixed namespace thanks to CRAN. 
+Second submission, fixed doc format and namespace issues. 
+
+Thanks! 
 
 ## Test environments
 

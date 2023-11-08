@@ -10,7 +10,7 @@ Description: Build a constrained high quality Delaunay triangulation from simple
    path-based constrained  triangulation see <https://CRAN.R-project.org/package=decido> and for high-quality configurable
     triangulation see <https://github.com/hypertidy/anglr>. Also consider comparison
     with the 'GEOS' lib which since version 3.10.0 includes a low quality 
-    polygon triangulator that starts with ear clipping and refines to Delaunay. 
+    polygon triangulation method that starts with ear clipping and refines to Delaunay. 
 Depends:
     R (>= 3.3.0)
 License: CC BY-NC-SA 4.0
@@ -24,7 +24,7 @@ Imports:
     sf, 
     sp, 
     tibble
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Suggests: testthat,
     covr,
     knitr,
