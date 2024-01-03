@@ -1,5 +1,5 @@
 ---
-title: "High Quality Constrained triangulation for Simple Features"
+title: "High Quality Constrained Triangulation for Simple Features"
 author: "Michael D. Sumner"
 date: "`r Sys.Date()`"
 output:
@@ -7,7 +7,7 @@ output:
     fig_width: 7
     fig_height: 7
 vignette: >
-  %\VignetteIndexEntry{constrained-triangulation-simple-features}
+  %\VignetteIndexEntry{"High Quality Constrained Triangulation for Simple Features}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -92,9 +92,9 @@ nc_triangles[1:2, c(1, 5)] %>% st_transform("+proj=laea") %>% ct_triangulate(a =
 
 ```{r}
 data("antarctica")
-plot(antarctica)
+plot(antarctica[0])
 a <- ct_triangulate(st_difference(antarctica[1], antarctica[2, ]), a = 5e10)
-plot(st_geometry(a), col = "firebrick")
+plot(a[0], col = "firebrick")
 ```
 
 

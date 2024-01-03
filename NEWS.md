@@ -1,3 +1,10 @@
+# sfdct 0.3.0
+
+* Updated plot to remove issue on CRAN vignette. 
+
+* Recreated antarctica dataset. 
+
+
 # sfdct 0.2.0
 
 * Fix namespace thanks to CRAN. 
