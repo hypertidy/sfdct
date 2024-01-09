@@ -33,5 +33,5 @@ Suggests: testthat,
     viridisLite
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/hypertidy/sfdct
+URL: https://github.com/hypertidy/sfdct, https://hypertidy.github.io/sfdct/
 BugReports: https://github.com/hypertidy/sfdct/issues
